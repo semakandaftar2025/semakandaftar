@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/style.css">
+    <title>Sistem Semakan Daftar Peguam Syarie Negeri Perlis | Login</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-left">
+                <div class="nav-logo">
+                    <img src="/images/jata negara.png" alt="Jata Negara" class="logo-img">
+                    <img src="/images/jata perlis.png" alt="Jata Perlis" class="logo-img">
+                    <img src="/images/jksnps logo.png" alt="Logo JKSNPs" class="logo-img">
+                  </div>                  
+            </div>
+            
+            <div class="nav-center">
+              <!-- If want nav links later, add here -->
+            </div>
+            
+            <div class="nav-right">
+                <img src="/images/logo sistem.png" alt="Logo Sistem" class="logo-img">
+            </div>
+          </nav>
+
+<!---- Form box ---->
+<form>
+    <div class="form-box">
+        <!---- Login form ---->
+        <div class="login-container" id="login">
+            <div class="top">
+                <header>Login</header>
+                <i class='bx bx-info-circle' onclick="alert('Admin use only. For help, click on Forgot Password.')"></i>
+            </div>
+            <div class="two-forms">
+                <div class="input-box">
+                    <input type="email" id="email" class="input-field" placeholder="Email" required>
+                    <i class="bx bxs-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" class="input-field" placeholder="Password" required>
+                    <i class="bx bxs-key"></i>
+                </div>
+            </div>
+            <button type="submit" id="submit" class="submit">Login</button>
+            <div class="two-col">
+                <div class="one">
+              </div>
+                <div class="two">
+                    <label><a href="/user/user_homepage.html">Forget password?</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+<script type="module">
+    import { auth } from '../firebase.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+  
+    document.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+  
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+  
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Login successful!");
+          window.location.href = "admin_homepage.html";
+        })
+        .catch((error) => {
+          alert("Login failed: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>

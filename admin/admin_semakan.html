@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Semakan Daftar Peguam Syarie Negeri Perlis</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/app.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="nav-logo">
+        <img src="/images/jata negara.png" alt="Jata Negara" class="logo-img" />
+        <img src="/images/jata perlis.png" alt="Jata Perlis" class="logo-img" />
+        <img src="/images/jksnps logo.png" alt="Logo JKSNPs" class="logo-img" />
+      </div>
+    </div>
+    <div class="nav-right">
+      <img src="/images/logo sistem.png" alt="Logo Sistem" class="logo-img" />
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+    <div id="sidebar" class="sidebar">
+      <ul>
+        <li>
+          <span class="logo full-logo">Sistem Semakan Daftar Peguam Syarie</span>
+          <span class="logo short-logo">SSPS</span>
+          <button id="toggleBtn">
+            <i id="toggleIcon" class="bx bx-chevrons-left" style="font-size: 24px;"></i>
+          </button>
+        </li>
+        <div class="menu-links">
+          <li>
+            <a href="/admin/admin_homepage.html"><i class="bx bxs-home"></i><span> Home</span></a>
+          </li>
+          <li class="active">
+            <a href="#"><i class="bx bxs-user-check"></i><span> Semakan Daftar</span></a>
+          </li>
+          <li>
+            <a href="/admin/admin_faq.html"><i class="bx bxs-help-circle"></i><span> FAQ</span></a>
+          </li>
+          <li>
+            <a href="/admin/admin_about.html"><i class="bx bxs-info-circle"></i><span> About</span></a>
+          </li>
+          <li class="logout">
+            <a href="/admin/logout.php"><i class="bx bx-power-off"></i><span> Logout</span></a>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div id="content">
+      <main>
+        <h1>Semakan Daftar Peguam Syarie</h1>
+      </main>
+
+      <div class="container">
+        <div class="semakan-container">
+            <form class="search-row" action="#" method="get">
+                <div class="search-container">
+                  <i class="fas fa-search"></i>
+                  <input type="text" name="search" placeholder="Search..." />
+                </div>
+                <a href="add_form.html">
+                  <button type="button" class="add-btn">+ ADD</button>
+                </a>  
+            </form>
+                    
+            <div class="content-row">
+              <!-- Add your other contents here -->
+              <p>This is the content area.</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

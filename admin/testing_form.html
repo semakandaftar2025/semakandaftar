@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+  <title>Equal Width Inputs</title>
+  <style>
+
+    .form-wrapper {
+      background: white;
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .fields {
+      display: flex;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+
+    .input-fields {
+      flex: 1; /* Ensures equal width */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-fields input {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      background: green;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body class="body-new">
+  <div class="form-wrapper">
+    <h2>Pendaftaran Peguam Baru</h2>
+    <div class="fields">
+      <div class="input-fields">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter your name">
+      </div>
+      <div class="input-fields">
+        <label>Date of Birth</label>
+        <input type="date">
+      </div>
+      <div class="input-fields">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email">
+      </div>
+    </div>
+    <button class="submit-form">Hantar</button>
+  </div>
+</body>
+</html>
