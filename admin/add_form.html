@@ -32,53 +32,135 @@
         <h1>Pendaftaran Peguam Baru</h1>
         <button class="close-form">X</button>
     </div>
-    <form action="#">
+    <form id="myform">
         <div class="line-2">
             <div class="add-form">
-                <span class="title">Personal Details</span>
-                
+                <span class="title">Butiran Peribadi</span>
                 <div class="fields">
                     <div class="input-fields">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name" required>
+                        <label>Nama Penuh (*)</label>
+                        <input type="text" id="nama" placeholder="Masukkan nama" required>
                     </div>
                     <div class="input-fields">
-                        <label>Date of Birth</label>
-                        <input type="date" placeholder="Enter birth date" required>
+                        <label>No. Kad Pengenalan (*)</label>
+                        <input type="number" id="icNum" placeholder="Masukkan IC (tanpa -)" required>
                     </div>
                     <div class="input-fields">
-                        <label>Email</label>
-                        <input type="text" placeholder="Enter your email" required>
+                        <label>No. Telefon (B) (*)</label>
+                        <input type="text" id="noTel" placeholder="Masukkan no. telefon bimbit" required>
                     </div>
                 </div>
-
                 <div class="fields">
                     <div class="input-fields">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name" required>
+                        <label>Alamat Rumah (*)</label>
+                        <input type="text" id="alamat" placeholder="Masukkan alamat penuh" required>
                     </div>
                     <div class="input-fields">
-                        <label>Date of Birth</label>
-                        <input type="date" placeholder="Enter birth date" required>
-                    </div>
-                    <div class="input-fields">
-                        <label>Email</label>
-                        <input type="text" placeholder="Enter your email" required>
+                        <label>Emel (*)</label>
+                        <input type="email" id="emel" placeholder="Masukkan emel" required>
                     </div>
                 </div>
-
+            
+                <span class="title">Maklumat Akademik</span>
                 <div class="fields">
                     <div class="input-fields">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name" required>
+                        <label>Kelulusan Akademik</label>
+                        <input type="text" id="kelulusan" placeholder="Masukkan kelulusan akademik">
                     </div>
-                    
+                </div>
+            
+                <span class="title">Maklumat Firma</span>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>Nama Firma (*)</label>
+                        <input type="text" id="namaFirma" placeholder="Masukkan nama firma" required>
+                    </div>
+                    <div class="input-fields">
+                        <label>No. Pendaftaran Firma (*)</label>
+                        <input type="text" id="noPendaftaranFirma" placeholder="Masukkan no. pendaftaran firma" required>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>Alamat Firma</label>
+                        <input type="text" id="alamatFirma" placeholder="Masukkan alamat firma">
+                    </div>
+                    <div class="input-fields">
+                        <label>Alamat Cawangan</label>
+                        <input type="text" id="alamatCawangan" placeholder="Masukkan alamat cawangan">
+                    </div>
+                    <div class="input-fields">
+                        <label>Alamat Firma (Ibu Pejabat)</label>
+                        <input type="text" id="alamatFirmaIbuPejabat" placeholder="Masukkan alamat ibu pejabat">
+                    </div>
+                </div>
+            
+                <span class="title">Maklumat Perhubungan</span>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>No. Telefon (P)</label>
+                        <input type="text" id="noTelPejabat" placeholder="Masukkan no. telefon pejabat">
+                    </div>
+                    <div class="input-fields">
+                        <label>No. Fax (P)</label>
+                        <input type="text" id="noFax" placeholder="Masukkan no. fax pejabat">
+                    </div>
+                    <div class="input-fields">
+                        <label>Emel Firma</label>
+                        <input type="email" id="emelFirma" placeholder="Masukkan emel firma">
+                    </div>
+                </div>
+            
+                <span class="title">Maklumat Amalan</span>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>Tarikh Diterima Masuk</label>
+                        <input type="date" id="tarikhDiterima" placeholder="Masukkan tarikh diterima masuk">
+                    </div>
+                    <div class="input-fields">
+                        <label>Tempoh Sah Sijil Amalan</label>
+                        <input type="date" id="tempohSijilAmalan" placeholder="Masukkan tempoh sah">
+                    </div>
+                    <div class="input-fields">
+                        <label>Tarikh Pembatalan</label>
+                        <input type="date" id="tarikhBatal" placeholder="Masukkan tarikh pembatalan">
+                    </div>
+                </div>
+            
+                <span class="title">Maklumat Lain</span>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>Maklumat Tindakan Tatatertib (JIKA ADA)</label>
+                        <select id="tindakanTatatertib">
+                            <option value="">-- Pilih --</option>
+                            <option value="Denda">Denda</option>
+                        </select>
+                    </div>
+                    <div class="input-fields">
+                        <label>Butiran Lain</label>
+                        <input type="text" id="butiranLain" placeholder="Masukkan butiran tambahan">
+                    </div>
+                    <div class="input-fields">
+                        <label>Link Gambar Passport</label>
+                        <input type="text" id="linkGmbr" placeholder="Masukkan link gambar passport" required>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="input-fields">
+                        <label>No Resit</label>
+                        <input type="number" id="noResit" placeholder="Masukkan nombor resit" required>
+                    </div>
+                    <div class="input-fields">
+                        <label>No Siri Daftar</label>
+                        <input type="text" id="noSiriDaftar" placeholder="Masukkan nombor siri daftar" required>
+                    </div>
                 </div>
             </div>
-            <button class="submit-form">Hantar</button>
+            
+            <button type="submit" id="hantarBtn" class="submit-form">Hantar</button>
         </div>
     </form>
 </div>
-
+<script type="module" src="firebase.js"></script>
 </body>
 </html>
