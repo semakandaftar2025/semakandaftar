@@ -150,8 +150,10 @@
 
   if (searchTerm.trim() !== "") {
     const snapshot = await getDocs(collection(db, "peguamsyarie"));
-    let dataList = snapshot.docs.map(doc => doc.data());
-
+    let dataList = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
     const lowerSearch = searchTerm.toLowerCase();
 
     dataList = dataList.filter(data => {
@@ -172,8 +174,9 @@
 
     const paginated = dataList.slice(0, entryLimit);
     paginated.forEach((data) => {
-      addRow(count++, data);
+      addRow(count++, data, data.id);
     });
+
 
     entrySummary.textContent = `Showing ${paginated.length} result(s) for "${searchTerm}"`;
   } else {
@@ -182,7 +185,7 @@
     const snapshot = await getDocs(baseQuery);
 
     snapshot.forEach((doc) => {
-      addRow(count++, doc.data());
+      addRow(count++, doc.data(), doc.id);
     });
 
     const totalSnapshot = await getCountFromServer(collection(db, "peguamsyarie"));
@@ -190,7 +193,7 @@
   }
 }
 
-  function addRow(no, data) {
+  function addRow(no, data, docId) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${no}</td>
@@ -199,7 +202,7 @@
       <td>${data.namaFirma || '-'}</td>
       <td>${data.noTel || '-'}</td>
       <td>${data.status || '-'}</td>
-      <td><button class="butiran-btn" data-doc-id="${data.id}">Lihat Butiran</button></td>
+      <td><button class="butiran-btn" data-doc-id="${docId}">Lihat Butiran</button></td>
 
 
     `;
