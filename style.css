@@ -841,14 +841,64 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
 #butiranModal {
   display: none;
   position: fixed;
-  top: 20%;
-  left: 25%;
-  width: 50%;
-  background: #fff;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  width: 600px;
+  max-width: 95vw;
+  max-height: 90vh;
+  min-width: 300px;
+  min-height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   padding: 20px;
-  border: 1px solid #444;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-  z-index: 999;
+  overflow: auto;
+  resize: both; /* Enable full resizing */
+}
+
+/* Close button styling */
+#butiranModal .closeModal {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+}
+
+/* Table styling inside modal */
+#butiranModal table {
+  width: 100%;
+  min-width: 300px;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+/* Table body to support scrolling if needed */
+#modalTableBody {
+  width: 100%;
+}
+
+/* Table cells */
+#butiranModal th,
+#butiranModal td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  word-break: break-word;
+  min-width: 100px;
+  background-color: #f9f9f9;
+}
+
+/* Optional: make header bold and styled */
+#butiranModal th {
+  background-color: #f1f1f1;
+  font-weight: bold;
 }
 
 .modal-content {

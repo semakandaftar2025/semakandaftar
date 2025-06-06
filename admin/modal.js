@@ -21,11 +21,24 @@ document.addEventListener("click", async function (e) {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
+
+        // Create header row
+        const headerRow = document.createElement("tr");
         for (const key in data) {
-          const row = document.createElement("tr");
-          row.innerHTML = `<td><strong>${key}</strong></td><td>${data[key]}</td>`;
-          tableBody.appendChild(row);
+          const th = document.createElement("th");
+          th.textContent = key;
+          headerRow.appendChild(th);
         }
+        tableBody.appendChild(headerRow);
+
+        // Create value row
+        const valueRow = document.createElement("tr");
+        for (const key in data) {
+          const td = document.createElement("td");
+          td.textContent = data[key];
+          valueRow.appendChild(td);
+        }
+        tableBody.appendChild(valueRow);
 
         modal.style.display = "block";
       } else {
@@ -36,3 +49,4 @@ document.addEventListener("click", async function (e) {
     }
   }
 });
+
