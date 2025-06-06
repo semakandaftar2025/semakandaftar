@@ -7,12 +7,20 @@
   <title>Sistem Semakan Daftar Peguam Syarie Negeri Perlis</title>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=search" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="/app.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 </head>
 <body>
+
+<!-- Modal-->
+<div id="butiranModal">
+  <button class="closeModal">Tutup</button>
+  <table>
+    <tbody id="modalTableBody"></tbody>
+  </table>
+</div>
+
+  <!-- Navigation -->
   <div class="nav">
     <div class="nav-left">
       <div class="nav-logo">
@@ -26,6 +34,7 @@
     </div>
   </div>
 
+  <!-- Sidebar -->
   <div class="page-wrapper">
     <div id="sidebar" class="sidebar">
       <ul>
@@ -37,25 +46,16 @@
           </button>
         </li>
         <div class="menu-links">
-          <li>
-            <a href="/admin/admin_homepage.html"><i class="bx bxs-home"></i><span> Home</span></a>
-          </li>
-          <li class="active">
-            <a href="#"><i class="bx bxs-user-check"></i><span> Semakan Daftar</span></a>
-          </li>
-          <li>
-            <a href="/admin/admin_faq.html"><i class="bx bxs-help-circle"></i><span> FAQ</span></a>
-          </li>
-          <li>
-            <a href="/admin/admin_about.html"><i class="bx bxs-info-circle"></i><span> About</span></a>
-          </li>
-          <li class="logout">
-            <a href="/admin/logout.php"><i class="bx bx-power-off"></i><span> Logout</span></a>
-          </li>
+          <li><a href="/admin/admin_homepage.html"><i class="bx bxs-home"></i><span> Home</span></a></li>
+          <li class="active"><a href="#"><i class="bx bxs-user-check"></i><span> Semakan Daftar</span></a></li>
+          <li><a href="/admin/admin_faq.html"><i class="bx bxs-help-circle"></i><span> FAQ</span></a></li>
+          <li><a href="/admin/admin_about.html"><i class="bx bxs-info-circle"></i><span> About</span></a></li>
+          <li class="logout"><a href="/admin/logout.php"><i class="bx bx-power-off"></i><span> Logout</span></a></li>
         </div>
       </ul>
     </div>
 
+    <!-- Main Content -->
     <div id="content">
       <main>
         <h1>Semakan Daftar Peguam Syarie</h1>
@@ -63,23 +63,169 @@
 
       <div class="container">
         <div class="semakan-container">
-            <form class="search-row" action="#" method="get">
-                <div class="search-container">
-                  <i class="fas fa-search"></i>
-                  <input type="text" name="search" placeholder="Search..." />
-                </div>
-                <a href="add_form.html">
-                  <button type="button" class="add-btn">+ ADD</button>
-                </a>  
-            </form>
-                    
-            <div class="content-row">
-              <!-- Add your other contents here -->
-              <p>This is the content area.</p>
+          <form class="search-row" action="#" method="get" onsubmit="return false;">
+            <div class="search-filter">
+              <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" name="search" placeholder="Search..." />
+              </div>
+              <select id="filterOption">
+                <option value="all">All</option>
+                <option value="nama">Nama</option>
+                <option value="kelulusan">Kelulusan</option>
+                <option value="namaFirma">Nama Firma</option>
+                <option value="noTel">No Telefon</option>
+                <option value="status">Status</option>
+              </select>
             </div>
+            <a href="add_form.html">
+              <button type="button" class="add-btn">+ ADD</button>
+            </a>  
+          </form>
+          
+          <div class="content-row">
+            <div class="entry-limit-row">
+              <label for="entryLimitSelect">Show</label>
+              <select id="entryLimitSelect">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+              <span>entries:</span>
+            </div>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Nama</th>
+                  <th>Kelulusan Akademik</th>
+                  <th>Nama Firma</th>
+                  <th>No Telefon</th>
+                  <th>Status</th>
+                  <th>Butiran</th>
+                </tr>
+              </thead>
+              <tbody id="peguamTableBody">
+                <!-- Table data will appear here -->
+              </tbody>
+            </table>
+            <h4 id="entrySummary">Loading entry count...</h4>
           </div>
+        </div>
       </div>
     </div>
   </div>
+
+<!-- Firebase & JS -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { 
+    getFirestore, collection, getDocs, query, orderBy, limit, getCountFromServer
+  } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+    authDomain: "semakan-daftar-c9267.firebaseapp.com",
+    projectId: "semakan-daftar-c9267",
+    storageBucket: "semakan-daftar-c9267.appspot.com",
+    messagingSenderId: "1090274861346",
+    appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const tableBody = document.getElementById("peguamTableBody");
+  const entrySummary = document.getElementById("entrySummary");
+  const entryLimitSelect = document.getElementById("entryLimitSelect");
+  const searchInput = document.getElementById("searchInput");
+
+  async function loadTableData(searchTerm = "") {
+  tableBody.innerHTML = ""; // Clear previous results
+
+  const entryLimit = parseInt(entryLimitSelect.value);
+  const selectedFilter = document.getElementById("filterOption").value;
+  let count = 1;
+
+  if (searchTerm.trim() !== "") {
+    const snapshot = await getDocs(collection(db, "peguamsyarie"));
+    let dataList = snapshot.docs.map(doc => doc.data());
+
+    const lowerSearch = searchTerm.toLowerCase();
+
+    dataList = dataList.filter(data => {
+      if (selectedFilter === "all") {
+        return (
+          (data.nama && data.nama.toLowerCase().includes(lowerSearch)) ||
+          (data.kelulusan && data.kelulusan.toLowerCase().includes(lowerSearch)) ||
+          (data.namaFirma && data.namaFirma.toLowerCase().includes(lowerSearch)) ||
+          (data.noTel && data.noTel.toLowerCase().includes(lowerSearch)) ||
+          (data.status && data.status.toLowerCase().includes(lowerSearch))
+        );
+      } else {
+        return (
+          data[selectedFilter] && data[selectedFilter].toLowerCase().includes(lowerSearch)
+        );
+      }
+    });
+
+    const paginated = dataList.slice(0, entryLimit);
+    paginated.forEach((data) => {
+      addRow(count++, data);
+    });
+
+    entrySummary.textContent = `Showing ${paginated.length} result(s) for "${searchTerm}"`;
+  } else {
+    // Default listing
+    const baseQuery = query(collection(db, "peguamsyarie"), orderBy("nama"), limit(entryLimit));
+    const snapshot = await getDocs(baseQuery);
+
+    snapshot.forEach((doc) => {
+      addRow(count++, doc.data());
+    });
+
+    const totalSnapshot = await getCountFromServer(collection(db, "peguamsyarie"));
+    entrySummary.textContent = `Showing 1 to ${snapshot.size} of ${totalSnapshot.data().count} entries`;
+  }
+}
+
+  function addRow(no, data) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${no}</td>
+      <td>${data.nama || '-'}</td>
+      <td>${data.kelulusan || '-'}</td>
+      <td>${data.namaFirma || '-'}</td>
+      <td>${data.noTel || '-'}</td>
+      <td>${data.status || '-'}</td>
+      <td><button class="butiran-btn" data-doc-id="${data.id}">Lihat Butiran</button></td>
+
+
+    `;
+    tableBody.appendChild(row);
+  }
+
+  // Event listeners
+  entryLimitSelect.addEventListener("change", () => loadTableData(searchInput.value));
+  searchInput.addEventListener("input", () => loadTableData(searchInput.value));
+  document.getElementById("filterOption").addEventListener("change", () => loadTableData(searchInput.value));
+
+  // Initial load
+  // Initial load and modal close button
+document.addEventListener("DOMContentLoaded", () => {
+  loadTableData();
+
+  // This ensures it only runs after the modal exists in DOM
+  document.querySelector(".closeModal").addEventListener("click", function () {
+    document.getElementById("butiranModal").style.display = "none";
+  });
+});
+
+</script>
+
+
+<script type="module" src="modal.js"></script>
+
 </body>
 </html>

@@ -65,6 +65,7 @@ function generateRandomID(length = 8) {
         linkGmbr: document.getElementById('linkGmbr').value,
         noResit: document.getElementById('noResit').value,
         noSiriDaftar: document.getElementById('noSiriDaftar').value,
+        status: document.getElementById('status').value,
         createdAt: new Date().toISOString()
       };
 

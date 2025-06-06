@@ -228,6 +228,21 @@ body {
   background-color: #f9cd56;
 }
 
+.butiran-btn {
+  background-color: #4CAF50; /* green background */
+  color: white;              /* white text */
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.butiran-btn:hover {
+  background-color: #45a049; /* darker green on hover */
+}
+
 canvas {
     width: auto;
     max-width: auto;
@@ -258,7 +273,25 @@ canvas {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
 
-  .column-contact-image {
+  .close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.column-contact-image {
     display: flex;
     flex-direction: column;
   }
@@ -328,12 +361,41 @@ canvas {
 
   /*semakan daftar*/
   .content-row {
-    background-color: #d3a84c; /* soft warm background */
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   }
 
+  .content-row h1 {
+  color: wheat;
+  padding-bottom: 2vh;
+}
+
+.content-row table {
+  background-color: whitesmoke;
+}
+
+  .content-row table thead tr th {
+  background-color: #d3a84c;
+}
+
+.content-row table tbody tr:nth-child(even) {
+  background-color: #fae1ac;
+}
+
+.content-row table tbody tr:hover {
+  background-color: #a4a4a4;
+  cursor: pointer;
+}
+
+.content-row table tbody tr td:hover {
+  color: whitesmoke;
+}
+
+
+.content-row h4 {
+  padding-top: 2vh;
+}
 
   .content-homepage-row {
     display: flex;
@@ -357,6 +419,19 @@ canvas {
     font-size: 16px;
   }
 
+  .entry-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* adjust spacing as needed */
+  margin-bottom: 10px; /* optional: adds spacing below */
+}
+
+#entryLimitSelect {
+  width: auto;
+  min-width: 60px;
+  padding: 5px;
+  font-size: 14px;
+}
 
   .faq-1, .faq-2, .faq-3, .faq-4, .embed {
     width: 100%;
@@ -762,6 +837,52 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   font-size: 18px;
 }
 
+
+#butiranModal {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #444;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  position: relative;
+}
+
+.closeModal {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-scroll {
+  overflow-x: auto;
+}
+
+.modal-table {
+  width: max-content;
+  border-collapse: collapse;
+}
+
+.modal-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ccc;
+}
+
 #myChart {
     width: 100%;
     height: 300px;
@@ -990,6 +1111,27 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.search-container {
+  padding-right: 2vw;
+}
+
+.search-container input {
+  width: 30vw;
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.search-filter {
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+}
+
+#searchInput {
+  width: 15vw;
+}
+
 .search-form form {
   display: flex;
   flex-direction: column;
@@ -1004,6 +1146,9 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
 .search-row {
     display: flex;
     gap: 8px;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 20px;
   }
   
 .search-row input {
