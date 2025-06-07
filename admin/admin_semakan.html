@@ -13,16 +13,16 @@
 <body>
 
 <!-- Modal-->
-<div id="butiranModal">
-  <button class="closeModal">Tutup</button>
-  <div class="modal-content">
-    <table>
-      <thead id="modalTableHead"></thead>
-      <tbody id="modalTableBody"></tbody>
-    </table>
+<div id="butiranModal" style="display: none;">
+  <div class="modal-scroll-wrapper">
+    <button class="closeModal" id="closeModalBtn" aria-label="Close modal">×</button>
+    <div class="modal-content" id="profileContainer">
+      <div id="profileImageContainer"></div>
+      <h2 id="profileName"></h2>
+      <table id="profileTable"></table>
+    </div>
   </div>
 </div>
-
 
   <!-- Navigation -->
   <div class="nav">

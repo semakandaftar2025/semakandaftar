@@ -228,6 +228,72 @@ body {
   background-color: #f9cd56;
 }
 
+#butiranModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  margin-top: 2vh;
+  max-width: 120vw;
+  max-height: 80vh;
+  min-width: 400px;
+  min-height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  overflow: auto;
+  resize: both; /* Enable full resizing */
+}
+
+/* Close button styling */
+#butiranModal .closeModal {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+}
+
+/* Table styling inside modal */
+#butiranModal table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+/* Table body to support scrolling if needed */
+#modalTableBody {
+  width: 100%;
+}
+
+/* Table cells */
+#butiranModal th,
+#butiranModal td {
+  padding: 5px;
+  border: 1px solid #ddd;
+  text-align: left;
+  word-break: break-word;
+  min-width: 100%;
+  background-color: #f9f9f9;
+}
+
+/* Optional: make header bold and styled */
+#butiranModal th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
 .butiran-btn {
   background-color: #4CAF50; /* green background */
   color: white;              /* white text */
@@ -289,6 +355,24 @@ canvas {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.closeModal {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  background: transparent;
+  color: #555;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  padding: 0;
+  line-height: 1;
+}
+
+.closeModal:hover {
+  color: #d9534f;
 }
 
 .column-contact-image {
@@ -364,6 +448,7 @@ canvas {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    padding-top: 4px;
   }
 
   .content-row h1 {
@@ -837,78 +922,15 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   font-size: 18px;
 }
 
-
-#butiranModal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ffffff;
-  width: 600px;
-  max-width: 95vw;
-  max-height: 90vh;
-  min-width: 300px;
-  min-height: 200px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  overflow: auto;
-  resize: both; /* Enable full resizing */
-}
-
-/* Close button styling */
-#butiranModal .closeModal {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  float: right;
-  margin-bottom: 10px;
-}
-
-/* Table styling inside modal */
-#butiranModal table {
-  width: 100%;
-  min-width: 300px;
-  border-collapse: collapse;
-  display: block;
-  overflow-x: auto;
-}
-
-/* Table body to support scrolling if needed */
-#modalTableBody {
-  width: 100%;
-}
-
-/* Table cells */
-#butiranModal th,
-#butiranModal td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-  word-break: break-word;
-  min-width: 100px;
-  background-color: #f9f9f9;
-}
-
-/* Optional: make header bold and styled */
-#butiranModal th {
-  background-color: #f1f1f1;
-  font-weight: bold;
-}
-
 .modal-content {
   background-color: #fff;
   margin: 10% auto;
-  padding: 20px;
+  padding: 5px;
   border-radius: 8px;
-  width: 60%;
+  width: 95%;
   position: relative;
 }
+
 
 .closeModal {
   position: absolute;
@@ -1063,6 +1085,22 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
     min-height: 100vh;
     padding-top: 80px;
   } 
+
+  #profileImageContainer img {
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#profileTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#profileTable td {
+  padding: 8px 10px;
+  vertical-align: top;
+}
 
   .result-peguam {
     width: 100vw;

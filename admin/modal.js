@@ -1,20 +1,18 @@
-import {
-  getFirestore,
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
 
 const db = getFirestore();
 
-// Ordered fields and corresponding formal labels
+// Move linkGmbr to bottom
 const orderedFields = [
-  "id", "nama", "icNum", "noTel", "alamat", "emel", "kelulusan", "namaFirma",
+  "id", "icNum", "noTel", "alamat", "emel", "kelulusan", "namaFirma",
   "noPendaftaranFirma", "alamatFirma", "alamatCawangan", "alamatFirmaIbuPejabat",
   "noTelPejabat", "noFax", "emelFirma", "tarikhDiterima", "tempohSijilAmalan",
-  "tarikhBatal", "tindakanTatatertib", "butiranLain", "linkGmbr", "noResit", "noSiriDaftar"
+  "tarikhBatal", "tindakanTatatertib", "butiranLain", "noResit", "noSiriDaftar",
+  "linkGmbr" // placed at the bottom
 ];
 
 const formalLabels = {
+  linkGmbr: "Pautan Gambar",
   id: "ID",
   nama: "Nama",
   icNum: "No. Kad Pengenalan",
@@ -35,7 +33,6 @@ const formalLabels = {
   tarikhBatal: "Tarikh Pembatalan",
   tindakanTatatertib: "Tindakan Tatatertib",
   butiranLain: "Butiran Lain",
-  linkGmbr: "Gambar",
   noResit: "No. Resit",
   noSiriDaftar: "No. Siri Daftar"
 };
@@ -45,11 +42,14 @@ document.addEventListener("click", async function (e) {
     const docId = e.target.getAttribute("data-doc-id");
     const modal = document.getElementById("butiranModal");
 
+    const profileImageContainer = document.getElementById("profileImageContainer");
+    const profileName = document.getElementById("profileName");
+    const profileTable = document.getElementById("profileTable");
+
     // Clear previous content
-    const tableHead = document.getElementById("modalTableHead");
-    const tableBody = document.getElementById("modalTableBody");
-    tableHead.innerHTML = "";
-    tableBody.innerHTML = "";
+    profileImageContainer.innerHTML = "";
+    profileName.textContent = "";
+    profileTable.innerHTML = "";
 
     try {
       const docRef = doc(db, "peguamsyarie", docId);
@@ -58,34 +58,54 @@ document.addEventListener("click", async function (e) {
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        // Create header row with formal labels
-        const headerRow = document.createElement("tr");
-        orderedFields.forEach(field => {
-          const th = document.createElement("th");
-          th.textContent = formalLabels[field] || field;
-          headerRow.appendChild(th);
-        });
-        tableHead.appendChild(headerRow);
+        // Top profile image
+        if (data.linkGmbr) {
+          const img = document.createElement("img");
+          img.src = data.linkGmbr;
+          img.alt = "Gambar";
+          img.style.maxWidth = "150px";
+          img.style.borderRadius = "10px";
+          profileImageContainer.style.textAlign = "center";
+          profileImageContainer.appendChild(img);
+        }
 
-        // Create value row
-        const valueRow = document.createElement("tr");
-        orderedFields.forEach(field => {
-          const td = document.createElement("td");
+        // Display name in black, bold, and centered
+        profileName.textContent = data.nama || "-";
+        profileName.style.textAlign = "center";
+        profileName.style.fontWeight = "bold";
+        profileName.style.color = "black";
+        profileName.style.marginTop = "10px";
 
-          // If field is a URL for image, render image
-          if (field === "linkGmbr" && data[field]) {
-            const img = document.createElement("img");
-            img.src = data[field];
-            img.alt = "Gambar";
-            img.style.maxWidth = "100px";
-            td.appendChild(img);
+        // Table: 3 fields per row
+        for (let i = 0; i < orderedFields.length; i += 3) {
+          const tr = document.createElement("tr");
+          const fields = orderedFields.slice(i, i + 3);
+
+          if (fields.includes("linkGmbr")) {
+            // Only show if data exists
+            if (data.linkGmbr) {
+              const td = document.createElement("td");
+              td.colSpan = 6;
+              td.innerHTML = `<strong>${formalLabels["linkGmbr"]}:</strong> <a href="${data["linkGmbr"]}" target="_blank">${data["linkGmbr"]}</a>`;
+              tr.appendChild(td);
+              profileTable.appendChild(tr);
+            }
           } else {
-            td.textContent = data[field] || "-";
-          }
+            for (const field of fields) {
+              if (field) {
+                const tdLabel = document.createElement("td");
+                const tdValue = document.createElement("td");
 
-          valueRow.appendChild(td);
-        });
-        tableBody.appendChild(valueRow);
+                tdLabel.innerHTML = `<strong>${formalLabels[field]}</strong>`;
+                tdValue.textContent = data[field] || "-";
+
+                tr.appendChild(tdLabel);
+                tr.appendChild(tdValue);
+              }
+            }
+            profileTable.appendChild(tr);
+          }
+        }
 
         modal.style.display = "block";
       } else {
@@ -96,3 +116,17 @@ document.addEventListener("click", async function (e) {
     }
   }
 });
+
+// Close modal
+document.getElementById("closeModalBtn").addEventListener("click", function () {
+  document.getElementById("butiranModal").style.display = "none";
+});
+
+// Close modal on outside click
+document.getElementById("butiranModal").addEventListener("click", function (e) {
+  const modalContent = document.getElementById("modalContent");
+  if (!modalContent.contains(e.target)) {
+    this.style.display = "none";
+  }
+});
+
