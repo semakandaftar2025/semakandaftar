@@ -2,13 +2,12 @@ import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11
 
 const db = getFirestore();
 
-// Move linkGmbr to bottom
 const orderedFields = [
   "id", "icNum", "noTel", "alamat", "emel", "kelulusan", "namaFirma",
   "noPendaftaranFirma", "alamatFirma", "alamatCawangan", "alamatFirmaIbuPejabat",
   "noTelPejabat", "noFax", "emelFirma", "tarikhDiterima", "tempohSijilAmalan",
   "tarikhBatal", "tindakanTatatertib", "butiranLain", "noResit", "noSiriDaftar",
-  "linkGmbr" // placed at the bottom
+  "linkGmbr"
 ];
 
 const formalLabels = {
@@ -37,14 +36,17 @@ const formalLabels = {
   noSiriDaftar: "No. Siri Daftar"
 };
 
+// Elements
+const modal = document.getElementById("butiranModal");
+const overlay = document.getElementById("modalOverlay");
+const profileImageContainer = document.getElementById("profileImageContainer");
+const profileName = document.getElementById("profileName");
+const profileTable = document.getElementById("profileTable");
+
+// Open modal and fetch data
 document.addEventListener("click", async function (e) {
   if (e.target && e.target.classList.contains("butiran-btn")) {
     const docId = e.target.getAttribute("data-doc-id");
-    const modal = document.getElementById("butiranModal");
-
-    const profileImageContainer = document.getElementById("profileImageContainer");
-    const profileName = document.getElementById("profileName");
-    const profileTable = document.getElementById("profileTable");
 
     // Clear previous content
     profileImageContainer.innerHTML = "";
@@ -58,7 +60,7 @@ document.addEventListener("click", async function (e) {
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        // Top profile image
+        // Image
         if (data.linkGmbr) {
           const img = document.createElement("img");
           img.src = data.linkGmbr;
@@ -69,45 +71,42 @@ document.addEventListener("click", async function (e) {
           profileImageContainer.appendChild(img);
         }
 
-        // Display name in black, bold, and centered
+        // Name
         profileName.textContent = data.nama || "-";
         profileName.style.textAlign = "center";
         profileName.style.fontWeight = "bold";
         profileName.style.color = "black";
         profileName.style.marginTop = "10px";
 
-        // Table: 3 fields per row
+        // Table
         for (let i = 0; i < orderedFields.length; i += 3) {
           const tr = document.createElement("tr");
           const fields = orderedFields.slice(i, i + 3);
 
-          if (fields.includes("linkGmbr")) {
-            // Only show if data exists
-            if (data.linkGmbr) {
-              const td = document.createElement("td");
-              td.colSpan = 6;
-              td.innerHTML = `<strong>${formalLabels["linkGmbr"]}:</strong> <a href="${data["linkGmbr"]}" target="_blank">${data["linkGmbr"]}</a>`;
-              tr.appendChild(td);
-              profileTable.appendChild(tr);
-            }
+          if (fields.includes("linkGmbr") && data.linkGmbr) {
+            const td = document.createElement("td");
+            td.colSpan = 6;
+            td.innerHTML = `<strong>${formalLabels["linkGmbr"]}:</strong> <a href="${data["linkGmbr"]}" target="_blank">${data["linkGmbr"]}</a>`;
+            tr.appendChild(td);
+            profileTable.appendChild(tr);
           } else {
             for (const field of fields) {
-              if (field) {
-                const tdLabel = document.createElement("td");
-                const tdValue = document.createElement("td");
+              const tdLabel = document.createElement("td");
+              const tdValue = document.createElement("td");
 
-                tdLabel.innerHTML = `<strong>${formalLabels[field]}</strong>`;
-                tdValue.textContent = data[field] || "-";
+              tdLabel.innerHTML = `<strong>${formalLabels[field]}</strong>`;
+              tdValue.textContent = data[field] || "-";
 
-                tr.appendChild(tdLabel);
-                tr.appendChild(tdValue);
-              }
+              tr.appendChild(tdLabel);
+              tr.appendChild(tdValue);
             }
             profileTable.appendChild(tr);
           }
         }
 
+        // Show modal & overlay
         modal.style.display = "block";
+        overlay.style.display = "block";
       } else {
         alert("Maklumat tidak dijumpai.");
       }
@@ -117,16 +116,16 @@ document.addEventListener("click", async function (e) {
   }
 });
 
-// Close modal
+// Close modal on close button
 document.getElementById("closeModalBtn").addEventListener("click", function () {
-  document.getElementById("butiranModal").style.display = "none";
+  modal.style.display = "none";
+  overlay.style.display = "none";
+  //document.body.style.overflow = "hidden";
 });
 
-// Close modal on outside click
-document.getElementById("butiranModal").addEventListener("click", function (e) {
-  const modalContent = document.getElementById("modalContent");
-  if (!modalContent.contains(e.target)) {
-    this.style.display = "none";
-  }
+// Close modal if click outside (on overlay)
+overlay.addEventListener("click", function () {
+  modal.style.display = "none";
+  overlay.style.display = "none";
+  //document.body.style.overflow = "hidden";
 });
-
