@@ -935,11 +935,11 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   background-color: #fff;
   margin-top: 8vh;
   justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 2vw;
+  margin-right: 2vw;
   padding: 5px;
   border-radius: 8px;
-  width: 95%;
+  width: 98%;
   position: relative;
 }
 
