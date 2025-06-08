@@ -169,9 +169,76 @@
     </form>
 </div>
 
-<!-- 🔷 Firebase and app logic -->
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
 
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+    authDomain: "semakan-daftar-c9267.firebaseapp.com",
+    projectId: "semakan-daftar-c9267",
+    storageBucket: "semakan-daftar-c9267.appspot.com",
+    messagingSenderId: "1090274861346",
+    appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+  };
 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Get docId from URL
+  const params = new URLSearchParams(window.location.search);
+  const docId = params.get("docId");
+
+  async function fillFormData(docId) {
+    if (!docId) return alert("docId not found in URL!");
+
+    try {
+      const docRef = doc(db, "peguamsyarie", docId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // Fill each form field with Firestore data
+        document.getElementById("nama").value = data.nama || "";
+        document.getElementById("icNum").value = data.icNum || "";
+        document.getElementById("noTel").value = data.noTel || "";
+        document.getElementById("alamat").value = data.alamat || "";
+        document.getElementById("emel").value = data.emel || "";
+        document.getElementById("kelulusan").value = data.kelulusan || "";
+        document.getElementById("namaFirma").value = data.namaFirma || "";
+        document.getElementById("noPendaftaranFirma").value = data.noPendaftaranFirma || "";
+        document.getElementById("alamatFirma").value = data.alamatFirma || "";
+        document.getElementById("alamatCawangan").value = data.alamatCawangan || "";
+        document.getElementById("alamatFirmaIbuPejabat").value = data.alamatFirmaIbuPejabat || "";
+        document.getElementById("noTelPejabat").value = data.noTelPejabat || "";
+        document.getElementById("noFax").value = data.noFax || "";
+        document.getElementById("emelFirma").value = data.emelFirma || "";
+        document.getElementById("tarikhDiterima").value = data.tarikhDiterima || "";
+        document.getElementById("tempohSijilAmalan").value = data.tempohSijilAmalan || "";
+        document.getElementById("tarikhBatal").value = data.tarikhBatal || "";
+        document.getElementById("tindakanTatatertib").value = data.tindakanTatatertib || "";
+        document.getElementById("butiranLain").value = data.butiranLain || "";
+        document.getElementById("linkGmbr").value = data.linkGmbr || "";
+        document.getElementById("noResit").value = data.noResit || "";
+        document.getElementById("noSiriDaftar").value = data.noSiriDaftar || "";
+        document.getElementById("status").value = data.status || "";
+
+      } else {
+        alert("No such document!");
+      }
+    } catch (err) {
+      console.error("Error getting document:", err);
+      alert("Error loading data!");
+    }
+  }
+
+  // Run on load
+  fillFormData(docId);
+</script>
 
 </body>
 </html>
