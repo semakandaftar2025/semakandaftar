@@ -260,8 +260,8 @@ body {
 
 /* Close button styling */
 #butiranModal .closeModal {
-  background-color: #8b0000;
-  color: #fff;
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
@@ -272,7 +272,7 @@ body {
 }
 
 #butiranModal .closeModal:hover {
-  background-color: #a40000;
+  background-color: #8b0000;
 }
 
 /* Table styling inside modal */
@@ -324,6 +324,23 @@ body {
 
 .butiran-btn:hover {
   background-color: #45a049; /* darker green on hover */
+}
+
+#cancelDeleteBtn {
+  background-color: #827e7e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease;
+  border-radius: 15px;
+}
+
+#cancelDeleteBtn:hover {
+  background-color: rgb(69, 68, 68);
 }
 
 canvas {
@@ -392,6 +409,11 @@ canvas {
   color: #d9534f;
 }
 
+#closeRemoveModalBtn {
+  color: black;
+  padding: 8px 12px;
+}
+
 .column-contact-image {
     display: flex;
     flex-direction: column;
@@ -418,6 +440,30 @@ canvas {
 .comical-btn:active {
     transform: translateY(1px);
     box-shadow: 0 2px 0 #a30000;
+}
+
+#confirmDeleteBtn {
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease;
+  border-radius: 15px;
+}
+
+#confirmDeleteBtn:hover {
+  background-color: #a82835; /* Bootstrap danger red */
+}
+
+.confirm-delete {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .contact-info {
@@ -531,8 +577,8 @@ canvas {
 
 .edit-peguam-btn button {
   border-radius: 15px;
+  background-color: #17a2b8; /* Bootstrap info blue */
   color: white;
-  background-color: #ff9900;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
@@ -540,14 +586,17 @@ canvas {
 }
 
 .edit-peguam-btn button:hover {
-  color: rgb(239, 171, 45);
-  background-color: #d2d1cf;
+  background-color: #117a8b;
+}
+
+.remove-info-box {
+  padding: 13px 3px 20px 13px;
 }
 
 .remove-peguam-btn button {
   border-radius: 15px;
+  background-color: #dc3545; /* Bootstrap danger red */
   color: white;
-  background-color: #cc0000;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
@@ -555,8 +604,7 @@ canvas {
 }
 
 .remove-peguam-btn button:hover {
-  color: rgb(228, 60, 60);
-  background-color: #d2d1cf;
+  background-color: #c82333; /* Darker red on hover */
 }
 
   .entry-limit-row {
@@ -990,6 +1038,27 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   position: relative;
 }
 
+.modal-content-remove {
+  background-color: #fff;
+  color: black;
+  margin-top: 8vh;
+  align-items: center;
+  justify-content: center;
+  margin: 2% auto;
+  padding: 5px;
+  border-radius: 8px;
+  width: 100%;
+  position: relative;
+}
+
+.modal-content-remove h2 {
+  font-size: 20px;
+}
+
+.modal-content-remove p {
+  padding: 15px 0 5px 0;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1008,6 +1077,17 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.closeRemoveModal {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  height: auto;
+  width: auto;
 }
 
 .modal-scroll {
@@ -1180,6 +1260,20 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
 #profileTable td {
   padding: 8px 10px;
   vertical-align: top;
+}
+
+#removeModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1.5em;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  z-index: 1001;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
   .result-peguam {

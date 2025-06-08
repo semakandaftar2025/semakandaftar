@@ -23,13 +23,36 @@
       <div id="profileImageContainer"></div>
       <h2 id="profileName"></h2>
       <table id="profileTable"></table>
+      <!-- REMOVE and EDIT buttons -->
       <div class="edit-remove-btn">
         <div class="remove-peguam-btn">
-          <button>Remove</button>
+          <button id="modalRemoveBtn" class="btn-danger-custom remove-btn">Padam</button>
         </div>
         <div class="edit-peguam-btn">
-          <button>Edit</button>
+          <button id="modalEditBtn" class="edit-btn">Edit</button>
         </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Overlay for removeModal -->
+<div id="modalOverlayRemove" class="modal-overlay" style="display:none;"></div>
+
+<!-- Remove Confirmation Modal -->
+<div id="removeModal" class="modal" style="display:none;">
+  <div class="modal-scroll-wrapper">
+    <div class="modal-content-remove">
+      <button id="closeRemoveModalBtn" class="closeRemoveModal">&times;</button>
+      <h2>Padam Peguam</h2>
+      <p>Anda pasti mahu memadam maklumat peguam berikut?</p>
+      <div class="remove-info-box">
+        <strong>Nama:</strong> <span id="removeNamaDisplay"></span><br>
+        <strong>ID Dokumen:</strong> <span id="removeDocIdDisplay"></span>
+      </div>
+      <div class="confirm-delete">
+        <button id="confirmDeleteBtn">Ya, Padam</button>
+        <button id="cancelDeleteBtn">Batal</button>
       </div>
     </div>
   </div>
