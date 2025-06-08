@@ -113,7 +113,7 @@ document.addEventListener("click", async function (e) {
         }
 
         document.getElementById("modalRemoveBtn").setAttribute("data-doc-id", docId);
-        //document.getElementById("modalEditBtn").setAttribute("data-doc-id", docId);
+        document.getElementById("modalEditBtn").setAttribute("data-doc-id", docId);
 
 
         // Show modal
@@ -205,12 +205,12 @@ document.addEventListener("click", async (e) => {
   }
 });
 
-// document.getElementById('modalEditBtn').addEventListener('click', function() {
-//   const docId = this.getAttribute('data-doc-id');
-//   if (!docId) {
-//     alert('❗ Doc ID tidak tersedia untuk suntingan.');
-//     return;
-//   }
-//   // Redirect to your edit page with docId in URL query parameter
-//   window.location.href = `edit.html?docId=${docId}`;
-// });
+modalEditBtn.addEventListener('click', function () {
+  const docId = this.getAttribute('data-doc-id');
+  if (!docId) {
+    alert('❗ Doc ID tidak tersedia untuk suntingan.');
+    return;
+  }
+  // Redirect to your edit page with docId in URL query parameter
+  window.location.href = `edit_form.html?docId=${docId}`;
+});
