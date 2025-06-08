@@ -747,7 +747,7 @@ canvas {
   display: flex; /* important! */
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .form-wrapper .line-1 h1 {
@@ -756,8 +756,20 @@ canvas {
   font-weight: 600;
 }
 
+.form-wrapper .line-1 .close-form {
+  background-color: #e20f0f;
+}
+
 .form-wrapper .line-1 .close-form:hover {
-  background-color: #9d9e9f;
+  background-color: #cb3838;
+}
+
+.form-wrapper .line-1 .close-edit-form {
+  background-color: #e20f0f;
+}
+
+.form-wrapper .line-1 .close-edit-form:hover {
+  background-color: #cb3838;
 }
 
 .form-wrapper .line-2 {
@@ -1109,6 +1121,10 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
     height: 300px;
 }
 
+#updateForm {
+  padding-bottom: 20px;
+}
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -1371,6 +1387,20 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
     font-size: 1.5rem;
     font-weight: bold;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#saveBtn {
+  background-color: #007BFF;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#saveBtn:hover {
+  background-color: #1268c5;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .search-container {

@@ -214,3 +214,12 @@ modalEditBtn.addEventListener('click', function () {
   // Redirect to your edit page with docId in URL query parameter
   window.location.href = `edit_form.html?docId=${docId}`;
 });
+
+// // Handle close button click
+// document.querySelector(".close-edit-form").addEventListener("click", () => {
+//   history.back();
+// });
+
+// document.querySelector(".close-form").addEventListener("click", () => {
+//   history.back();
+// });

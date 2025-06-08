@@ -30,9 +30,9 @@
 <div class="form-wrapper">
     <div class="line-1">
         <h1>Edit Maklumat</h1>
-        <button class="close-form">X</button>
+        <button class="close-edit-form">X</button>
     </div>
-    <form id="myform">
+    <form id="updateForm">
         <div class="line-2">
             <div class="add-form">
                 <span class="title">Butiran Peribadi</span>
@@ -172,7 +172,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
 
   // Firebase config
   const firebaseConfig = {
@@ -202,7 +202,7 @@
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        // Fill each form field with Firestore data
+        // Fill form fields
         document.getElementById("nama").value = data.nama || "";
         document.getElementById("icNum").value = data.icNum || "";
         document.getElementById("noTel").value = data.noTel || "";
@@ -236,8 +236,57 @@
     }
   }
 
-  // Run on load
+  async function updateFormData(event) {
+    event.preventDefault(); // Prevent form submission
+
+    try {
+      const docRef = doc(db, "peguamsyarie", docId);
+
+      // Get values from form
+      await updateDoc(docRef, {
+        nama: document.getElementById("nama").value,
+        icNum: document.getElementById("icNum").value,
+        noTel: document.getElementById("noTel").value,
+        alamat: document.getElementById("alamat").value,
+        emel: document.getElementById("emel").value,
+        kelulusan: document.getElementById("kelulusan").value,
+        namaFirma: document.getElementById("namaFirma").value,
+        noPendaftaranFirma: document.getElementById("noPendaftaranFirma").value,
+        alamatFirma: document.getElementById("alamatFirma").value,
+        alamatCawangan: document.getElementById("alamatCawangan").value,
+        alamatFirmaIbuPejabat: document.getElementById("alamatFirmaIbuPejabat").value,
+        noTelPejabat: document.getElementById("noTelPejabat").value,
+        noFax: document.getElementById("noFax").value,
+        emelFirma: document.getElementById("emelFirma").value,
+        tarikhDiterima: document.getElementById("tarikhDiterima").value,
+        tempohSijilAmalan: document.getElementById("tempohSijilAmalan").value,
+        tarikhBatal: document.getElementById("tarikhBatal").value,
+        tindakanTatatertib: document.getElementById("tindakanTatatertib").value,
+        butiranLain: document.getElementById("butiranLain").value,
+        linkGmbr: document.getElementById("linkGmbr").value,
+        noResit: document.getElementById("noResit").value,
+        noSiriDaftar: document.getElementById("noSiriDaftar").value,
+        status: document.getElementById("status").value
+      });
+
+      alert("Data updated successfully!");
+      window.location.href = "admin_semakan.html";
+    } catch (err) {
+      console.error("Error updating document:", err);
+      alert("Failed to update data!");
+    }
+  }
+
+  // Run on page load
   fillFormData(docId);
+
+  // Handle form submission
+  document.getElementById("updateForm").addEventListener("submit", updateFormData);
+
+  // Close the form
+  document.querySelector(".close-edit-form").addEventListener("click", () => {
+  history.back();
+  });
 </script>
 
 </body>
