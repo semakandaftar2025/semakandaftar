@@ -62,6 +62,7 @@ document.addEventListener("click", async function (e) {
     profileTable.innerHTML = "";
 
     try {
+      console.log("Fetching docId: ", docId);
       const docRef = doc(db, "peguamsyarie", docId);
       const docSnap = await getDoc(docRef);
 

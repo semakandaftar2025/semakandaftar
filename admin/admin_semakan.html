@@ -194,51 +194,55 @@
 
   let currentPage = 1;
   let totalPages = 1;
+  let allData = []; // Store all fetched data once
 
-  async function loadTableData(searchTerm = "") {
-    tableBody.innerHTML = ""; // Clear table
-    const entryLimit = parseInt(entryLimitSelect.value);
-    const selectedFilter = filterOption.value;
-
+  async function fetchDataOnce() {
     const baseQuery = query(collection(db, "peguamsyarie"), orderBy("nama"));
     const snapshot = await getDocs(baseQuery);
 
-    let dataList = snapshot.docs.map((doc) => ({
-      id: doc.id,
+    allData = snapshot.docs.map((doc) => ({
+      docId: doc.id,
       ...doc.data()
     }));
+  }
 
-    if (searchTerm.trim() !== "") {
-      const lowerSearch = searchTerm.toLowerCase();
-      dataList = dataList.filter(data => {
-        if (selectedFilter === "all") {
-          return (
-            (data.nama && data.nama.toLowerCase().includes(lowerSearch)) ||
-            (data.kelulusan && data.kelulusan.toLowerCase().includes(lowerSearch)) ||
-            (data.namaFirma && data.namaFirma.toLowerCase().includes(lowerSearch)) ||
-            (data.noTel && data.noTel.toLowerCase().includes(lowerSearch)) ||
-            (data.status && data.status.toLowerCase().includes(lowerSearch))
-          );
-        } else {
-          return (
-            data[selectedFilter] &&
-            data[selectedFilter].toLowerCase().includes(lowerSearch)
-          );
-        }
-      });
-    }
+  function filterAndPaginateData(searchTerm = "") {
+    const entryLimit = parseInt(entryLimitSelect.value);
+    const selectedFilter = filterOption.value;
+    const lowerSearch = searchTerm.trim().toLowerCase();
 
-    const totalEntries = dataList.length;
+    // Filter based on search
+    let filteredData = allData.filter((data) => {
+      if (searchTerm.trim() === "") return true;
+
+      if (selectedFilter === "all") {
+        return (
+          (data.nama && data.nama.toLowerCase().includes(lowerSearch)) ||
+          (data.kelulusan && data.kelulusan.toLowerCase().includes(lowerSearch)) ||
+          (data.namaFirma && data.namaFirma.toLowerCase().includes(lowerSearch)) ||
+          (data.noTel && data.noTel.toLowerCase().includes(lowerSearch)) ||
+          (data.status && data.status.toLowerCase().includes(lowerSearch))
+        );
+      } else {
+        return (
+          data[selectedFilter] &&
+          data[selectedFilter].toLowerCase().includes(lowerSearch)
+        );
+      }
+    });
+
+    const totalEntries = filteredData.length;
     totalPages = Math.ceil(totalEntries / entryLimit);
     const startIndex = (currentPage - 1) * entryLimit;
-    const paginatedData = dataList.slice(startIndex, startIndex + entryLimit);
+    const paginatedData = filteredData.slice(startIndex, startIndex + entryLimit);
 
+    // Clear table and insert new rows
+    tableBody.innerHTML = "";
     paginatedData.forEach((data, index) => {
-      addRow(startIndex + index + 1, data, data.id);
+      addRow(startIndex + index + 1, data, data.docId);
     });
 
     entrySummary.textContent = `Showing ${startIndex + 1} to ${startIndex + paginatedData.length} of ${totalEntries} entries`;
-
     prevPageBtn.style.display = currentPage > 1 ? "inline-block" : "none";
     nextPageBtn.style.display = currentPage < totalPages ? "inline-block" : "none";
   }
@@ -257,8 +261,9 @@
     tableBody.appendChild(row);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    loadTableData();
+  document.addEventListener("DOMContentLoaded", async () => {
+    await fetchDataOnce(); // Fetch data once on page load
+    filterAndPaginateData();
 
     document.querySelector(".closeModal").addEventListener("click", function () {
       document.getElementById("butiranModal").style.display = "none";
@@ -266,49 +271,45 @@
 
     entryLimitSelect.addEventListener("change", () => {
       currentPage = 1;
-      loadTableData(searchInput.value.trim());
+      filterAndPaginateData(searchInput.value.trim());
     });
 
     searchInput.addEventListener("input", () => {
       currentPage = 1;
-      loadTableData(searchInput.value.trim());
+      filterAndPaginateData(searchInput.value.trim());
     });
 
     filterOption.addEventListener("change", () => {
       currentPage = 1;
-      loadTableData(searchInput.value.trim());
+      filterAndPaginateData(searchInput.value.trim());
     });
 
     prevPageBtn.addEventListener("click", () => {
       if (currentPage > 1) {
         currentPage--;
-        loadTableData(searchInput.value.trim());
+        filterAndPaginateData(searchInput.value.trim());
       }
     });
 
     nextPageBtn.addEventListener("click", () => {
       if (currentPage < totalPages) {
         currentPage++;
-        loadTableData(searchInput.value.trim());
+        filterAndPaginateData(searchInput.value.trim());
       }
     });
   });
 
   onAuthStateChanged(auth, (user) => {
     if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
-      // ✅ Admin is logged in, continue
       console.log("Admin authenticated");
     } else {
-      // ❌ Not logged in or not admin
       alert("Please log in to access the admin page.");
       window.location.replace("login.html");
     }
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", (e) => {
-    //e.preventDefault();
+  document.getElementById("logoutBtn").addEventListener("click", () => {
     signOut(auth).then(() => {
-      // Redirect to login page after successful logout
       alert("You have been logged out.");
       window.location.replace("login.html");
     }).catch((error) => {
@@ -316,6 +317,7 @@
     });
   });
 </script>
+
 
 <script type="module" src="/app.js"></script>
 <script type="module" src="modal.js"></script>
