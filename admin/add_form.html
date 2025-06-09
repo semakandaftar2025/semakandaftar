@@ -203,12 +203,10 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+  // ✅ Redirect to login if not logged in or not admin
   onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
-      // Allow access
-    } else {
-      // Redirect to login page if not logged in or not admin
-      alert("You are not logged in.");
+    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
+      alert("Admin access only. Please log in first.");
       window.location.replace("login.html");
     }
   });

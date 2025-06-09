@@ -174,12 +174,10 @@
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "semakandaftarpeguamsyarie2025.com") {
-      // Allow access
-    } else {
-      // Redirect to login page if not logged in or not admin
-      alert("You are not logged in.");
+// ✅ Redirect to login if not logged in or not admin
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
+      alert("Admin access only. Please log in first.");
       window.location.replace("login.html");
     }
   });

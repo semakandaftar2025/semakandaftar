@@ -304,15 +304,12 @@
     });
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", (e) => {
-    //e.preventDefault();
-    signOut(auth).then(() => {
-      // Redirect to login page after successful logout
-      alert("You have been logged out.");
+  // ✅ Redirect to login if not logged in or not admin
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
+      alert("Admin access only. Please log in first.");
       window.location.replace("login.html");
-    }).catch((error) => {
-      console.error("Logout error:", error);
-    });
+    }
   });
 </script>
 

@@ -73,17 +73,13 @@
     // Prevent access to login page if already logged in
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
-    onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
-        window.location.replace("admin_homepage.html");
+    // ✅ Redirect to login if not logged in or not admin
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
+        alert("Admin access only. Please log in first.");
+        window.location.replace("login.html");
     }
-    else {
-        // Redirect to login page if not logged in or not admin
-      alert("You are not logged in.");
-      window.location.replace("login.html");
-    }
-    });
-
+  });
 
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
