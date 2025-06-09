@@ -185,5 +185,19 @@
       document.body.classList.add("loaded");
     });
   </script>
+
+  <script type="module">
+  import { auth, onAuthStateChanged } from "../firebase.js";
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "admin@example.com") {
+      // Allow access
+    } else {
+      // Redirect to login page if not logged in or not admin
+      window.location.href = "login.html";
+    }
+  });
+</script>
+
 </body>
 </html>

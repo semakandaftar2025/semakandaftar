@@ -91,7 +91,7 @@
           <li class="active"><a href="#"><i class="bx bxs-user-check"></i><span> Semakan Daftar</span></a></li>
           <li><a href="/admin/admin_faq.html"><i class="bx bxs-help-circle"></i><span> FAQ</span></a></li>
           <li><a href="/admin/admin_about.html"><i class="bx bxs-info-circle"></i><span> About</span></a></li>
-          <li class="logout"><a href="/admin/logout.php"><i class="bx bx-power-off"></i><span> Logout</span></a></li>
+          <li class="logout"><a href="#" id="logoutBtn"><i class="bx bx-power-off"></i><span> Logout</span></a></li>
         </div>
       </ul>
     </div>
@@ -169,6 +169,17 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
   import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+  import { auth, onAuthStateChanged } from "../firebase.js";
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "admin@example.com") {
+      // Allow access
+    } else {
+      // Redirect to login page if not logged in or not admin
+      window.location.href = "login.html";
+    }
+  });
 
   const firebaseConfig = {
     apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
@@ -304,5 +315,21 @@
     document.documentElement.classList.remove("preload");
   });
   </script>
+
+  <!-- Handle logout --> 
+  <script type="module">
+  import { auth } from "../firebase.js";
+  import { signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js"; 
+
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    signOut(auth).then(() => {
+      // Redirect to login page after successful logout
+      window.location.href = "/login.html";
+    }).catch((error) => {
+      console.error("Logout error:", error);
+    });
+  });
+</script>
 </body>
 </html>

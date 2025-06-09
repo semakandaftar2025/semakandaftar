@@ -177,6 +177,17 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
   import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
 
+  import { auth, onAuthStateChanged } from "../firebase.js";
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "admin@example.com") {
+      // Allow access
+    } else {
+      // Redirect to login page if not logged in or not admin
+      window.location.href = "login.html";
+    }
+  });
+  
   // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
@@ -290,6 +301,7 @@
   document.querySelector(".close-edit-form").addEventListener("click", () => {
   history.back();
   });
+
 </script>
 
 <script>
