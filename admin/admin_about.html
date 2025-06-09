@@ -99,20 +99,23 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-  // ✅ Redirect to login if not logged in or not admin
-  onAuthStateChanged(auth, (user) => {
-    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
-      alert("Admin access only. Please log in first.");
-      window.location.replace("login.html");
-    }
-  });
-
   window.addEventListener("load", function () {
       document.body.classList.add("loaded");
     });
 
   window.addEventListener("load", () => {
     document.documentElement.classList.remove("preload");
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
+      // ✅ Admin is logged in, continue
+      console.log("Admin authenticated");
+    } else {
+      // ❌ Not logged in or not admin
+      alert("Please log in to access the admin page.");
+      window.location.replace("login.html");
+    }
   });
 
   // Handle logout

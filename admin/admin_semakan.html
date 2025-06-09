@@ -184,16 +184,6 @@
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-    onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "admin@semakandaftarpeguamsyarie2025@gmail.com") {
-      // Allow access
-    } else {
-      // Redirect to login page if not logged in or not admin
-      alert("You are not logged in.");
-      window.location.replace("login.html");
-    }
-  });
-
   const tableBody = document.getElementById("peguamTableBody");
   const entrySummary = document.getElementById("entrySummary");
   const entryLimitSelect = document.getElementById("entryLimitSelect");
@@ -304,12 +294,26 @@
     });
   });
 
-  // ✅ Redirect to login if not logged in or not admin
   onAuthStateChanged(auth, (user) => {
-    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
-      alert("Admin access only. Please log in first.");
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
+      // ✅ Admin is logged in, continue
+      console.log("Admin authenticated");
+    } else {
+      // ❌ Not logged in or not admin
+      alert("Please log in to access the admin page.");
       window.location.replace("login.html");
     }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    //e.preventDefault();
+    signOut(auth).then(() => {
+      // Redirect to login page after successful logout
+      alert("You have been logged out.");
+      window.location.replace("login.html");
+    }).catch((error) => {
+      console.error("Logout error:", error);
+    });
   });
 </script>
 

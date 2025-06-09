@@ -176,16 +176,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
   import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
-
-  import { auth } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-
-  // ✅ Redirect to login if not logged in or not admin
-  onAuthStateChanged(auth, (user) => {
-    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
-      alert("Admin access only. Please log in first.");
-      window.location.replace("login.html");
-    }
-  });
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
   // Firebase config
   const firebaseConfig = {
@@ -200,6 +191,7 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const auth = getAuth(app);
 
   // Get docId from URL
   const params = new URLSearchParams(window.location.search);
@@ -299,6 +291,17 @@
   // Close the form
   document.querySelector(".close-edit-form").addEventListener("click", () => {
   history.back();
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
+      // ✅ Admin is logged in, continue
+      console.log("Admin authenticated");
+    } else {
+      // ❌ Not logged in or not admin
+      alert("Please log in to access the admin page.");
+      window.location.replace("login.html");
+    }
   });
 
 </script>

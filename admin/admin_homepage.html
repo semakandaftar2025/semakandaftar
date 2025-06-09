@@ -126,14 +126,6 @@
 
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
-  // ✅ Redirect to login if not logged in or not admin
-  onAuthStateChanged(auth, (user) => {
-    if (!user || user.email !== "semakandaftarpeguamsyarie2025@gmail.com") {
-      alert("Admin access only. Please log in first.");
-      window.location.replace("login.html");
-    }
-  });
-
   const firebaseConfig = {
       apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
       authDomain: "semakan-daftar-c9267.firebaseapp.com",
@@ -214,6 +206,17 @@
     tableBody.appendChild(row);
   });
 }
+
+onAuthStateChanged(auth, (user) => {
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
+      // ✅ Admin is logged in, continue
+      console.log("Admin authenticated");
+    } else {
+      // ❌ Not logged in or not admin
+      alert("Please log in to access the admin page.");
+      window.location.replace("login.html");
+    }
+  });
 
 document.getElementById("logoutBtn").addEventListener("click", (e) => {
     e.preventDefault();

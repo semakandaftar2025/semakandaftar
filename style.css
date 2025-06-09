@@ -948,6 +948,10 @@ i {
     transition: .2s ease;
 }
 
+#email:hover, #email:focus {
+    background: rgba(255, 255, 255, 0.25);
+}
+
 .input-box {
   position: relative;
   padding: 5px;
