@@ -325,7 +325,7 @@
     e.preventDefault();
     signOut(auth).then(() => {
       // Redirect to login page after successful logout
-      window.location.href = "/login.html";
+      window.location.href = "login.html";
     }).catch((error) => {
       console.error("Logout error:", error);
     });
