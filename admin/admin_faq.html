@@ -179,6 +179,7 @@ onAuthStateChanged(auth, (user) => {
       // Allow access
     } else {
       // Redirect to login page if not logged in or not admin
+      alert("You are not logged in.");
       window.location.replace("login.html");
     }
   });
@@ -372,9 +373,10 @@ onAuthStateChanged(auth, (user) => {
 });
 
 document.getElementById("logoutBtn").addEventListener("click", (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     signOut(auth).then(() => {
       // Redirect to login page after successful logout
+      alert("You have been logged out.");
       window.location.replace("login.html");
     }).catch((error) => {
       console.error("Logout error:", error);
