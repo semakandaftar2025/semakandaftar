@@ -65,23 +65,25 @@
             <div class="card">
               <div class="container">
                 <h4 class="label">Numbers of Registered Peguam Syarie</h4>
-                <h4 class="count">500</h4>
+                <h4 class="count">0</h4>
               </div>
             </div>
             <div class="card">
               <div class="container">
                 <h4 class="label">Number of Candidates Who Passed</h4>
-                <h4 class="count">40</h4>
+                <h4 class="count">0</h4>
               </div>
             </div>
             <div class="card">
               <div class="container">
                 <h4 class="label">Number of Candidates Who Failed</h4>
-                <h4 class="count">15</h4>
+                <h4 class="count">0</h4>
               </div>
             </div>
           </div>
-          <canvas id="myChart"></canvas>
+          <div style="width: 100%; max-width: 1000px; margin-top: 20px;">
+            <canvas id="myChart"></canvas>
+          </div>
         </div>
 
         <div class="right-section">
@@ -99,18 +101,14 @@
             <h1>Senarai Terkini</h1>
             <div class="list">
               <table>
-                <tr>
-                  <th>Nama</th>
-                  <th>Peguam ID</th>
-                </tr>
-                <tr>
-                  <td>Peter</td>
-                  <td>Griffin</td>
-                </tr>
-                <tr>
-                  <td>Lois</td>
-                  <td>Griffin</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>No Resit</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="latestTableBody"></tbody>
               </table>
             </div>
           </div>
@@ -118,5 +116,93 @@
       </div>
     </div>
   </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+      apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+      authDomain: "semakan-daftar-c9267.firebaseapp.com",
+      projectId: "semakan-daftar-c9267",
+      storageBucket: "semakan-daftar-c9267.appspot.com",
+      messagingSenderId: "1090274861346",
+      appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+    };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadDashboardData() {
+    const peguamsRef = collection(db, "peguamsyarie");
+    const snapshot = await getDocs(peguamsRef);
+
+    let total = 0, passed = 0, failed = 0, pending = 0;
+    const allPeguam = [];
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      total++;
+      if (data.status === "lulus") passed++;
+      else if (data.status === "gagal") failed++;
+      else if (data.status === "menunggu") pending++;
+      else if (data.status === "aktif") aktif++;
+      else if (data.status === "tidak aktif") tidakaktif++;
+
+      let resitValue = data.noResit === "0" ? "TIADA" : data.noResit || "-";
+
+      allPeguam.push({
+        nama: data.nama || "-",
+        noResit: resitValue,
+        status: data.status || "-",
+      });
+    });
+
+    document.querySelectorAll(".count")[0].textContent = total;
+    document.querySelectorAll(".count")[1].textContent = passed;
+    document.querySelectorAll(".count")[2].textContent = failed;
+
+    const ctx = document.getElementById("myChart").getContext("2d");
+    new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Lulus", "Gagal", "Menunggu", "Aktif", "Tidak Aktif"],
+        datasets: [{
+          label: "Status Calon",
+          data: [passed, failed, pending],
+          backgroundColor: ["#4CAF50", "#f44336", "#FFC107"]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: "bottom"
+        }
+      }
+    });
+
+    // Sort by createdAt (newest first) and take top 5
+    allPeguam.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+    const latestFive = allPeguam.slice(0, 5);
+
+    const tableBody = document.getElementById("latestTableBody");
+    tableBody.innerHTML = ""; // Clear existing rows
+
+    latestFive.forEach((item) => {
+      const row = document.createElement("tr");
+      const formattedDate = item.createdAt ? new Date(item.createdAt).toLocaleString("ms-MY") : "-";
+      row.innerHTML = `
+        <td>${item.nama}</td>
+        <td>${item.noResit}</td>
+        <td>${item.status}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  loadDashboardData();
+</script>
+
 </body>
 </html>

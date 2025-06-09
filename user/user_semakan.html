@@ -1,89 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Sistem Semakan Daftar Peguam Syarie Negeri Perlis | Login</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Sistem Semakan Daftar Peguam Syarie Negeri Perlis | Semakan</title>
 </head>
 <body>
-    <nav class="nav">
-            <div class="nav-left">
-                <div class="nav-logo">
-                    <img src="/images/jata negara.png" alt="Jata Negara" class="logo-img">
-                    <img src="/images/jata perlis.png" alt="Jata Perlis" class="logo-img">
-                    <img src="/images/jksnps logo.png" alt="Logo JKSNPs" class="logo-img">
-                  </div>                  
-            </div>
-            
-            <div class="nav-center">
-                            
-            </div>
-            
-            <div class="nav-right">
-                <div class="nav-menu">
-                    <ul>
-                        <li><a href="user_homepage.html" class="link">Home</a></li>
-                        <li><a href="#" class="link active">Semakan Daftar</a></li>
-                        <li><a href="user_faq.html" class="link">FAQ</a></li>
-                        <li><a href="user_about.html" class="link">About</a></li>
-                    </ul>
-                </div>            
-            </div>
-    </nav>
-    <div class="semakan-wrapper">
-          <div class="search-peguam">
-            <h1>Semakan Daftar Peguam Syarie</h1>
-            <div class="search-form">
-                <form action="/">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="fullname" placeholder="Enter a name">
-
-                    <div class="input-row">
-                        <div class="input-group">
-                          <label for="id">ID</label>
-                          <input type="number" id="id" name="idnumber" placeholder="Enter ID (without -/dashes)">
-                        </div>
-                      
-                        <div class="input-group">
-                          <label for="date">Date</label>
-                          <input type="date" id="date" name="date" placeholder="Choose a date">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i> Cari
-                    </button>
-                </form>
-
-            </div>
-          </div>
-          <div class="result-peguam">
-            <h1>Keputusan:</h1>
-            <table>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama</th>
-                    <th>Kelulusan Akademik</th>
-                    <th>Nama Firma</th>
-                    <th>No Telefon</th>
-                    <th>Status</th>
-                    <th>Butiran</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Ali bin Abu</td>
-                    <td>UiTM Laww</td>
-                    <td>AliAbu & Co.</td>
-                    <td>01234567890</td>
-                    <td>Lulus</td>
-                    <td class="action-cell"><button class="btn-details">Butiran</button></td>
-                </tr>
-            </table>
-          </div>
+  <nav class="nav">
+    <div class="nav-left">
+      <div class="nav-logo">
+        <img src="/images/jata negara.png" alt="Jata Negara" class="logo-img" />
+        <img src="/images/jata perlis.png" alt="Jata Perlis" class="logo-img" />
+        <img src="/images/jksnps logo.png" alt="Logo JKSNPs" class="logo-img" />
+      </div>
     </div>
+    <div class="nav-center"></div>
+    <div class="nav-right">
+      <div class="nav-menu">
+        <ul>
+          <li><a href="user_homepage.html" class="link">Home</a></li>
+          <li><a href="#" class="link active">Semakan Daftar</a></li>
+          <li><a href="user_faq.html" class="link">FAQ</a></li>
+          <li><a href="user_about.html" class="link">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="semakan-wrapper">
+    <div class="search-peguam">
+      <h1>Semakan Daftar Peguam Syarie</h1>
+      <div class="search-form">
+        <form>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="fullname" placeholder="Enter a name" />
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="id">ID</label>
+              <input type="text" id="id" name="idnumber" placeholder="Enter ID (without dashes)" />
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-magnifying-glass"></i> Cari
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="result-peguam">
+      <h1>Keputusan:</h1>
+      <table>
+        <tr>
+          <th>No.</th>
+          <th>Nama</th>
+          <th>Kelulusan Akademik</th>
+          <th>Nama Firma</th>
+          <th>No Telefon</th>
+          <th>Status</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Firebase & Firestore Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+      authDomain: "semakan-daftar-c9267.firebaseapp.com",
+      projectId: "semakan-daftar-c9267",
+      storageBucket: "semakan-daftar-c9267.appspot.com",
+      messagingSenderId: "1090274861346",
+      appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.querySelector('.search-form form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const nameInput = document.getElementById('name').value.trim().toLowerCase();
+  const idInput = document.getElementById('id').value.trim();
+
+  const table = document.querySelector('.result-peguam table');
+
+  // Clear previous results
+  table.innerHTML = `
+    <tr>
+      <th>No.</th>
+      <th>Nama</th>
+      <th>Kelulusan Akademik</th>
+      <th>Nama Firma</th>
+      <th>No Telefon</th>
+      <th>Status</th>
+    </tr>
+  `;
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "peguamsyarie"));
+    let count = 0;
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const nama = data.nama?.toLowerCase() || '';
+      const icNum = data.icNum?.toString() || '';
+
+      const matchName = nameInput ? nama.includes(nameInput) : true;
+      const matchId = idInput ? icNum === idInput : true;
+
+      if (matchName && matchId) {
+        count++;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${count}</td>
+          <td>${data.nama || '-'}</td>
+          <td>${data.kelulusan || '-'}</td>
+          <td>${data.firma || '-'}</td>
+          <td>${data.telefon || '-'}</td>
+          <td>${data.status || '-'}</td>
+        `;
+        table.appendChild(row);
+      }
+    });
+
+    if (count === 0) {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td colspan="6" style="text-align:center;">Tiada rekod dijumpai.</td>`;
+      table.appendChild(row);
+    }
+
+  } catch (error) {
+    console.error("Ralat:", error);
+    alert("Ralat semasa mendapatkan data. Sila cuba lagi.");
+  }
+});
+
+  </script>
 </body>
 </html>
