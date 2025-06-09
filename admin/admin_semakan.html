@@ -125,7 +125,8 @@
             <div class="entry-limit-row">
               <label for="entryLimitSelect">Show</label>
               <select id="entryLimitSelect">
-                <option value="10" selected>10</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
               </select>
@@ -148,7 +149,13 @@
                 <!-- Table data will appear here -->
               </tbody>
             </table>
-            <h4 id="entrySummary">Loading entry count...</h4>
+            <div class="count-prevnext">
+              <h4 id="entrySummary">Loading entry count...</h4>
+            <div class="pagination-buttons" style="margin-top: 10px;">
+              <button id="prevPageBtn">Previous</button>
+              <button id="nextPageBtn">Next</button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -158,9 +165,7 @@
 <!-- Firebase & JS -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { 
-    getFirestore, collection, getDocs, query, orderBy, limit, getCountFromServer
-  } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
@@ -178,58 +183,60 @@
   const entrySummary = document.getElementById("entrySummary");
   const entryLimitSelect = document.getElementById("entryLimitSelect");
   const searchInput = document.getElementById("searchInput");
+  const prevPageBtn = document.getElementById("prevPageBtn");
+  const nextPageBtn = document.getElementById("nextPageBtn");
+  const filterOption = document.getElementById("filterOption");
+
+  let currentPage = 1;
+  let totalPages = 1;
 
   async function loadTableData(searchTerm = "") {
-  tableBody.innerHTML = ""; // Clear previous results
+    tableBody.innerHTML = ""; // Clear table
+    const entryLimit = parseInt(entryLimitSelect.value);
+    const selectedFilter = filterOption.value;
 
-  const entryLimit = parseInt(entryLimitSelect.value);
-  const selectedFilter = document.getElementById("filterOption").value;
-  let count = 1;
+    const baseQuery = query(collection(db, "peguamsyarie"), orderBy("nama"));
+    const snapshot = await getDocs(baseQuery);
 
-  if (searchTerm.trim() !== "") {
-    const snapshot = await getDocs(collection(db, "peguamsyarie"));
-    let dataList = snapshot.docs.map(doc => ({
+    let dataList = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data()
     }));
-    const lowerSearch = searchTerm.toLowerCase();
 
-    dataList = dataList.filter(data => {
-      if (selectedFilter === "all") {
-        return (
-          (data.nama && data.nama.toLowerCase().includes(lowerSearch)) ||
-          (data.kelulusan && data.kelulusan.toLowerCase().includes(lowerSearch)) ||
-          (data.namaFirma && data.namaFirma.toLowerCase().includes(lowerSearch)) ||
-          (data.noTel && data.noTel.toLowerCase().includes(lowerSearch)) ||
-          (data.status && data.status.toLowerCase().includes(lowerSearch))
-        );
-      } else {
-        return (
-          data[selectedFilter] && data[selectedFilter].toLowerCase().includes(lowerSearch)
-        );
-      }
+    if (searchTerm.trim() !== "") {
+      const lowerSearch = searchTerm.toLowerCase();
+      dataList = dataList.filter(data => {
+        if (selectedFilter === "all") {
+          return (
+            (data.nama && data.nama.toLowerCase().includes(lowerSearch)) ||
+            (data.kelulusan && data.kelulusan.toLowerCase().includes(lowerSearch)) ||
+            (data.namaFirma && data.namaFirma.toLowerCase().includes(lowerSearch)) ||
+            (data.noTel && data.noTel.toLowerCase().includes(lowerSearch)) ||
+            (data.status && data.status.toLowerCase().includes(lowerSearch))
+          );
+        } else {
+          return (
+            data[selectedFilter] &&
+            data[selectedFilter].toLowerCase().includes(lowerSearch)
+          );
+        }
+      });
+    }
+
+    const totalEntries = dataList.length;
+    totalPages = Math.ceil(totalEntries / entryLimit);
+    const startIndex = (currentPage - 1) * entryLimit;
+    const paginatedData = dataList.slice(startIndex, startIndex + entryLimit);
+
+    paginatedData.forEach((data, index) => {
+      addRow(startIndex + index + 1, data, data.id);
     });
 
-    const paginated = dataList.slice(0, entryLimit);
-    paginated.forEach((data) => {
-      addRow(count++, data, data.id);
-    });
+    entrySummary.textContent = `Showing ${startIndex + 1} to ${startIndex + paginatedData.length} of ${totalEntries} entries`;
 
-
-    entrySummary.textContent = `Showing ${paginated.length} result(s) for "${searchTerm}"`;
-  } else {
-    // Default listing
-    const baseQuery = query(collection(db, "peguamsyarie"), orderBy("nama"), limit(entryLimit));
-    const snapshot = await getDocs(baseQuery);
-
-    snapshot.forEach((doc) => {
-      addRow(count++, doc.data(), doc.id);
-    });
-
-    const totalSnapshot = await getCountFromServer(collection(db, "peguamsyarie"));
-    entrySummary.textContent = `Showing 1 to ${snapshot.size} of ${totalSnapshot.data().count} entries`;
+    prevPageBtn.style.display = currentPage > 1 ? "inline-block" : "none";
+    nextPageBtn.style.display = currentPage < totalPages ? "inline-block" : "none";
   }
-}
 
   function addRow(no, data, docId) {
     const row = document.createElement("tr");
@@ -241,30 +248,47 @@
       <td>${data.noTel || '-'}</td>
       <td>${data.status || '-'}</td>
       <td><button class="butiran-btn" data-doc-id="${docId}">Lihat Butiran</button></td>
-
-
     `;
     tableBody.appendChild(row);
   }
 
-  // Event listeners
-  entryLimitSelect.addEventListener("change", () => loadTableData(searchInput.value));
-  searchInput.addEventListener("input", () => loadTableData(searchInput.value));
-  document.getElementById("filterOption").addEventListener("change", () => loadTableData(searchInput.value));
+  document.addEventListener("DOMContentLoaded", () => {
+    loadTableData();
 
-  // Initial load
-  // Initial load and modal close button
-document.addEventListener("DOMContentLoaded", () => {
-  loadTableData();
+    document.querySelector(".closeModal").addEventListener("click", function () {
+      document.getElementById("butiranModal").style.display = "none";
+    });
 
-  // This ensures it only runs after the modal exists in DOM
-  document.querySelector(".closeModal").addEventListener("click", function () {
-    document.getElementById("butiranModal").style.display = "none";
+    entryLimitSelect.addEventListener("change", () => {
+      currentPage = 1;
+      loadTableData(searchInput.value.trim());
+    });
+
+    searchInput.addEventListener("input", () => {
+      currentPage = 1;
+      loadTableData(searchInput.value.trim());
+    });
+
+    filterOption.addEventListener("change", () => {
+      currentPage = 1;
+      loadTableData(searchInput.value.trim());
+    });
+
+    prevPageBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        loadTableData(searchInput.value.trim());
+      }
+    });
+
+    nextPageBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        loadTableData(searchInput.value.trim());
+      }
+    });
   });
-});
-
 </script>
-
 
 <script type="module" src="modal.js"></script>
 

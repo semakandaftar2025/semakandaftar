@@ -562,6 +562,13 @@ canvas {
     font-weight: bold;
 }
 
+.count-prevnext {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* FAQ */
 .edit-icon {
     position: absolute;
@@ -1292,6 +1299,26 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
     min-height: 100vh;
     padding-top: 80px;
   } 
+
+  .pagination-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination-buttons button {
+  padding: 5px 15px;
+  background-color: #3d5afe;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 
 #profileContainer {
   padding: 10px;
