@@ -40,7 +40,7 @@
             <div class="two-forms">
                 <div class="input-box">
                     <input type="email" id="email" class="input-field" placeholder="Email" required>
-                    <i class="bx bxs-user"></i>
+                    <i class="bx bxs-user" id="icon-email"></i>
                 </div>
                 <div class="input-box">
                     <input type="password" id="password" class="input-field" placeholder="Password" required>
@@ -48,21 +48,27 @@
                 </div>
             </div>
             <button type="submit" id="submit" class="submit">Login</button>
-            <div class="two-col">
-                <div class="one">
-              </div>
-                <div class="two">
-                    <label><a href="/user/user_homepage.html">Forget password?</a></label>
-                </div>
-            </div>
         </div>
     </div>
 </form>
 </div>
 <!-- Firebase Login Script -->
   <script type="module">
-    import { auth } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+        authDomain: "semakan-daftar-c9267.firebaseapp.com",
+        projectId: "semakan-daftar-c9267",
+        storageBucket: "semakan-daftar-c9267.appspot.com",
+        messagingSenderId: "1090274861346",
+        appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+    };
+
+    // Initialize firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
     document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -77,7 +83,7 @@
           // ✅ Check if the user is the admin
           if (user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
             alert("Login successful!");
-            window.location.href = "admin_homepage.html";
+            window.location.replace("admin_homepage.html");
           } else {
             alert("Access denied: You are not the admin.");
           }
@@ -86,13 +92,11 @@
           alert("Login failed: " + error.message);
         });
     });
-  </script>
 
-  <!-- Optional page load animation -->
-  <script>
     window.addEventListener("load", function () {
       document.body.classList.add("loaded");
     });
+    
   </script>
  </body>
 </html>

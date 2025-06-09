@@ -935,6 +935,33 @@ i {
     font-weight: bold;
 }
 
+#email {
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    height: 50px;
+    width: 100%;
+    padding: 0 10px 0 45px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.input-box {
+  position: relative;
+  padding: 5px;
+}
+
+#icon-email {
+  position: absolute;
+  top: 30px; 
+  left: 20px; 
+  color: #fff;
+  font-size: 18px;
+  pointer-events: none;
+}
+
 .input-box i {
     position: relative;
     top: -35px;
@@ -1002,12 +1029,11 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
 
 .login-container {
     position: absolute;
-    width: 500px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     transition: .5s ease-in-out;
-    margin: 0 25px;
-    padding: 30px 40px;
     border-radius: 30px;
 }
 

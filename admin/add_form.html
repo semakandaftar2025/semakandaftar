@@ -187,14 +187,28 @@
   </script>
 
   <script type="module">
-  import { auth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+        authDomain: "semakan-daftar-c9267.firebaseapp.com",
+        projectId: "semakan-daftar-c9267",
+        storageBucket: "semakan-daftar-c9267.appspot.com",
+        messagingSenderId: "1090274861346",
+        appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+    };
+
+    // Initialize firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
   onAuthStateChanged(auth, (user) => {
     if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
       // Allow access
     } else {
       // Redirect to login page if not logged in or not admin
-      window.location.href = "login.html";
+      window.location.replace("login.html");
     }
   });
 </script>
