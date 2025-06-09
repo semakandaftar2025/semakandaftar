@@ -1651,6 +1651,7 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   }
 
 #sidebar.close {
+  margin-top: 10vh;
    width: 80px;
  }
 

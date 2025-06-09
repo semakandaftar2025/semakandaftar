@@ -134,72 +134,73 @@
   const db = getFirestore(app);
 
   async function loadDashboardData() {
-    const peguamsRef = collection(db, "peguamsyarie");
-    const snapshot = await getDocs(peguamsRef);
+  const peguamsRef = collection(db, "peguamsyarie");
+  const snapshot = await getDocs(peguamsRef);
 
-    let total = 0, passed = 0, failed = 0, pending = 0;
-    const allPeguam = [];
+  let total = 0, passed = 0, failed = 0, pending = 0, aktif = 0, tidakaktif = 0;
+  const allPeguam = [];
 
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      total++;
-      if (data.status === "lulus") passed++;
-      else if (data.status === "gagal") failed++;
-      else if (data.status === "menunggu") pending++;
-      else if (data.status === "aktif") aktif++;
-      else if (data.status === "tidak aktif") tidakaktif++;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    total++;
+    if (data.status === "lulus") passed++;
+    else if (data.status === "gagal") failed++;
+    else if (data.status === "menunggu") pending++;
+    else if (data.status === "aktif") aktif++;
+    else if (data.status === "tidak aktif") tidakaktif++;
 
-      let resitValue = data.noResit === "0" ? "TIADA" : data.noResit || "-";
+    let resitValue = data.noResit === "0" ? "TIADA" : data.noResit || "-";
 
-      allPeguam.push({
-        nama: data.nama || "-",
-        noResit: resitValue,
-        status: data.status || "-",
-      });
+    allPeguam.push({
+      nama: data.nama || "-",
+      noResit: resitValue,
+      status: data.status || "-",
+      createdAt: data.createdAt?.toDate?.() || new Date(0) // Default to epoch if missing
     });
+  });
 
-    document.querySelectorAll(".count")[0].textContent = total;
-    document.querySelectorAll(".count")[1].textContent = passed;
-    document.querySelectorAll(".count")[2].textContent = failed;
+  document.querySelectorAll(".count")[0].textContent = total;
+  document.querySelectorAll(".count")[1].textContent = passed;
+  document.querySelectorAll(".count")[2].textContent = failed;
 
-    const ctx = document.getElementById("myChart").getContext("2d");
-    new Chart(ctx, {
-      type: "pie",
-      data: {
-        labels: ["Lulus", "Gagal", "Menunggu", "Aktif", "Tidak Aktif"],
-        datasets: [{
-          label: "Status Calon",
-          data: [passed, failed, pending],
-          backgroundColor: ["#4CAF50", "#f44336", "#FFC107"]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: "bottom"
-        }
+  const ctx = document.getElementById("myChart").getContext("2d");
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Lulus", "Gagal", "Menunggu", "Aktif", "Tidak Aktif"],
+      datasets: [{
+        label: "Status Calon",
+        data: [passed, failed, pending, aktif, tidakaktif],
+        backgroundColor: ["#4CAF50", "#f44336", "#FFC107", "#03A9F4", "#9C27B0"]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        position: "bottom"
       }
-    });
+    }
+  });
 
-    // Sort by createdAt (newest first) and take top 5
-    allPeguam.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
-    const latestFive = allPeguam.slice(0, 5);
+  // 🔽 Sort and show 5 latest entries
+  allPeguam.sort((a, b) => b.createdAt - a.createdAt);
+  const latestFive = allPeguam.slice(0, 5);
 
-    const tableBody = document.getElementById("latestTableBody");
-    tableBody.innerHTML = ""; // Clear existing rows
+  const tableBody = document.getElementById("latestTableBody");
+  tableBody.innerHTML = "";
 
-    latestFive.forEach((item) => {
-      const row = document.createElement("tr");
-      const formattedDate = item.createdAt ? new Date(item.createdAt).toLocaleString("ms-MY") : "-";
-      row.innerHTML = `
-        <td>${item.nama}</td>
-        <td>${item.noResit}</td>
-        <td>${item.status}</td>
-      `;
-      tableBody.appendChild(row);
-    });
-  }
+  latestFive.forEach((item) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.nama}</td>
+      <td>${item.noResit}</td>
+      <td>${item.status}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
 
   loadDashboardData();
 </script>
