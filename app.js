@@ -4,14 +4,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.getElementById('toggleBtn');
   const toggleIcon = document.getElementById('toggleIcon');
 
-  if (toggleButton) {
-    toggleButton.addEventListener('click', function () {
-      sidebar.classList.toggle('close');
-      toggleButton.classList.toggle('rotate');
-      toggleIcon.classList.toggle('bx-chevrons-left');
-      toggleIcon.classList.toggle('bx-chevrons-right');
-    });
+  // Load sidebar state on page load
+  const savedSidebarState = localStorage.getItem("sidebarState");
+  if (savedSidebarState === "closed") {
+    sidebar.classList.add("close");
+    toggleIcon.classList.replace("bx-chevrons-left", "bx-chevrons-right");
   }
+
+  // Handle sidebar toggle and save state
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+
+    // Save the state
+    const isClosed = sidebar.classList.contains("close");
+    localStorage.setItem("sidebarState", isClosed ? "closed" : "open");
+
+    // Toggle icon direction
+    toggleIcon.classList.toggle("bx-chevrons-left");
+    toggleIcon.classList.toggle("bx-chevrons-right");
+  });
 
   // // CHART JS
   // const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
