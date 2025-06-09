@@ -40,6 +40,11 @@ function generateRandomID(length = 8) {
     document.getElementById("myform").addEventListener("submit", async function (e) {
       e.preventDefault();
 
+      const hantarBtn = document.getElementById("hantarBtn");
+      hantarBtn.disabled = true;
+      hantarBtn.textContent = "Sedang Hantar...";
+      hantarBtn.style.backgroundColor = "#a5b0a6";
+
       const noID = generateRandomID();
       const formData = {
         id: noID,
@@ -76,5 +81,10 @@ function generateRandomID(length = 8) {
       } catch (error) {
         console.error("❌ Ralat semasa menghantar data:", error);
         alert("❌ Gagal menghantar maklumat: " + error.message);
-      }
+      } finally {
+      // Enable the button again regardless of success or failure
+      hantarBtn.disabled = false;
+      hantarBtn.textContent = "Hantar";
+      hantarBtn.style.backgroundColor = "#4CAF50";
+    }
     });
