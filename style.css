@@ -1362,28 +1362,34 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
 }
 
   .result-peguam {
-    width: 100vw;
-    background-color: #007BFF;
-    border-radius: 10px;
-    outline: 1px solid whitesmoke;
-    padding: 20px;
-    margin-left: 100px;
-    margin-top: 0px;
-    margin-bottom: 10px;
-  }
-  
-  .result-peguam h1 {
-    color: white;
-  } 
-  
-  .result-peguam table tr th {
-    background-color: white;
-  }
+  width: 100vw;
+  background-color: #F0F0F0; /* soft gray */
+  border-radius: 10px;
+  outline: 1px solid #CCCCCC;
+  padding: 20px;
+  margin-left: 100px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-  .result-peguam table tr td {
-    background-color: grey;
-  }
-  
+/* Header title in soft blue */
+.result-peguam h1 {
+  color: #3b3939; /* Bootstrap primary blue */
+}
+
+/* Table header in blue */
+.result-peguam table tr th {
+  background-color: #007BFF;  /* Blue header */
+  color: white;               /* White text for contrast */
+}
+
+/* Table data cells */
+.result-peguam table tr td {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
 .right-about .p {
     height: 30px;
     width: 50px;
