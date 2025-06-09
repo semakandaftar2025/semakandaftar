@@ -165,7 +165,13 @@ body, html {
   height: 100%;
 }
 
+html.preload #sidebar {
+  transition: none !important;
+}
+
 body {
+    opacity: 0;
+    transition: opacity 0s ease-in-out;
     margin: 0;
     padding: 0;
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("images/bg.jpg");
@@ -176,6 +182,10 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(0.875rem, 1.5vw, 1rem);
   } 
+
+  body.loaded {
+    opacity: 1;
+  }
 
   /* This will override only for pages with class="body-new" */
   body.body-new {

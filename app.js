@@ -1,28 +1,38 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // SIDEBAR TOGGLE
-  const sidebar = document.getElementById('sidebar');
-  const toggleButton = document.getElementById('toggleBtn');
-  const toggleIcon = document.getElementById('toggleIcon');
+  const toggleBtn = document.getElementById("toggleBtn");
+  const sidebar = document.getElementById("sidebar");
+  const toggleIcon = document.getElementById("toggleIcon");
 
-  // Load sidebar state on page load
-  const savedSidebarState = localStorage.getItem("sidebarState");
-  if (savedSidebarState === "closed") {
-    sidebar.classList.add("close");
-    toggleIcon.classList.replace("bx-chevrons-left", "bx-chevrons-right");
-  }
-
-  // Handle sidebar toggle and save state
+  // Handle click to toggle sidebar
   toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("close");
 
-    // Save the state
+    // Save the current state
     const isClosed = sidebar.classList.contains("close");
-    localStorage.setItem("sidebarState", isClosed ? "closed" : "open");
+    localStorage.setItem("sidebarClosed", isClosed.toString());
 
-    // Toggle icon direction
-    toggleIcon.classList.toggle("bx-chevrons-left");
-    toggleIcon.classList.toggle("bx-chevrons-right");
+    if (isClosed) {
+      toggleIcon.classList.remove("bx-chevrons-left");
+      toggleIcon.classList.add("bx-chevrons-right");
+    } else {
+      toggleIcon.classList.remove("bx-chevrons-right");
+      toggleIcon.classList.add("bx-chevrons-left");
+    }
   });
+
+  // On page load, restore the sidebar state
+  const savedState = localStorage.getItem("sidebarClosed") === "true";
+  if (savedState) {
+    sidebar.classList.add("close");
+    toggleIcon.classList.remove("bx-chevrons-left");
+    toggleIcon.classList.add("bx-chevrons-right");
+  } else {
+    sidebar.classList.remove("close");
+    toggleIcon.classList.remove("bx-chevrons-right");
+    toggleIcon.classList.add("bx-chevrons-left");
+  }
+});
+
 
   // // CHART JS
   // const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
@@ -86,4 +96,3 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setInterval(showDateTime, 1000);
-});
