@@ -60,66 +60,88 @@
       </main>
       <div class="container">
         <div class="left-faq">
-          <div class="admin-faq-1">
+          <div class="admin-faq-1" data-id="faq1">
             <div class="admin-faq-question">
               <span class="edit-icon">✏️</span>
-              <p>1. Mengapa permohonan saya untuk menjadi Peguam Syarie ditolak?</p>
+              <p class="question-text"></p>
+              <textarea class="edit-question" style="display: none;"></textarea>
             </div>
             <div class="admin-faq-answer">
               <span class="edit-icon">✏️</span>
-              <p>Permohonan mungkin ditolak kerana tidak memenuhi syarat-syarat kelayakan 
-                seperti kelulusan dalam bidang undang-undang dan syariah, tidak lulus temuduga, 
-                atau kegagalan mengemukakan dokumen lengkap yang diperlukan. Setiap negeri juga 
-                mempunyai syarat tersendiri.
-              </p>
+              <p class="answer-text"></p>
+              <textarea class="edit-answer" style="display: none;"></textarea>
+            </div>
+            <div class="faq-buttons" style="display: none;">
+              <button class="save-faq-btn">Simpan</button>
+              <button class="cancel-faq-btn">Batal</button>
             </div>
           </div>
-          <div class="admin-faq-2">
+          <div class="admin-faq-2" data-id="faq2">
             <div class="admin-faq-question">
               <span class="edit-icon">✏️</span>
-              <p>2. Bolehkah saya memohon semula sebagai Peguam Syarie selepas gagal temu duga atau peperiksaan?</p>
+              <p class="question-text"></p>
+              <textarea class="edit-question" style="display: none;"></textarea>
             </div>
             <div class="admin-faq-answer">
               <span class="edit-icon">✏️</span>
-              <p>Ya, anda boleh memohon semula. Namun, anda disarankan untuk mengenalpasti kelemahan atau kekurangan semasa permohonan terdahulu dan memperbaikinya sebelum membuat permohonan baharu.
-              </p>
+              <p class="answer-text"></p>
+              <textarea class="edit-answer" style="display: none;"></textarea>
+            </div>
+            <div class="faq-buttons" style="display: none;">
+              <button class="save-faq-btn">Simpan</button>
+              <button class="cancel-faq-btn">Batal</button>
             </div>
           </div>
-          <div class="admin-faq-3">
+          <div class="admin-faq-3" data-id="faq3">
             <div class="admin-faq-question">
               <span class="edit-icon">✏️</span>
-              <p>3. Apakah sebab-sebab biasa calon gagal untuk menjadi Peguam Syarie?</p>
+              <p class="question-text"></p>
+              <textarea class="edit-question" style="display: none;"></textarea>
             </div>
             <div class="admin-faq-answer">
               <span class="edit-icon">✏️</span>
-              <p>Antara sebab biasa ialah kekurangan ilmu dalam bidang syariah atau undang-undang, tidak bersedia menghadapi temuduga, kurang kefasihan dalam bahasa Arab atau asas fiqh, 
-                serta kegagalan memahami prosedur perundangan syariah.</p>
+              <p class="answer-text"></p>
+              <textarea class="edit-answer" style="display: none;"></textarea>
+            </div>
+            <div class="faq-buttons" style="display: none;">
+              <button class="save-faq-btn">Simpan</button>
+              <button class="cancel-faq-btn">Batal</button>
             </div>
           </div>
-          <div class="admin-faq-4">
+          <div class="admin-faq-4" data-id="faq4">
             <div class="admin-faq-question">
               <span class="edit-icon">✏️</span>
-              <p>4. Adakah terdapat proses rayuan jika permohonan saya sebagai Peguam Syarie tidak berjaya?</p>
+              <p class="question-text"></p>
+              <textarea class="edit-question" style="display: none;"></textarea>
             </div>
             <div class="admin-faq-answer">
               <span class="edit-icon">✏️</span>
-              <p>Ya, anda boleh mengemukakan rayuan kepada pihak berkuasa agama negeri yang mengendalikan permohonan Peguam Syarie. Proses rayuan dan borang yang perlu diisi bergantung kepada peraturan negeri masing-masing.</p>
+              <p class="answer-text"></p>
+              <textarea class="edit-answer" style="display: none;"></textarea>
+            </div>
+            <div class="faq-buttons" style="display: none;">
+              <button class="save-faq-btn">Simpan</button>
+              <button class="cancel-faq-btn">Batal</button>
             </div>
           </div>
         </div>
         <div class="right-faq">
           <h1>Tutorial video</h1>
-          <div class="admin-embed">
+          <div class="admin-embed" data-id="linkYoutube">
             <div class="admin-faq-question">
               <p>Insert a video link.</p>
             </div>
             <div class="admin-faq-answer">
               <span class="edit-icon">✏️</span>
-              <p>https://www.youtube.com/embed/nfHBoEqx2dw?si=9NGiek-80Ns7WWO6</p>
+              <p class="answer-text"></p>
+              <textarea class="edit-answer" style="display: none;"></textarea>
             </div>
-            <iframe height="480" width="500" 
-                src="https://www.youtube.com/embed/nfHBoEqx2dw?si=9NGiek-80Ns7WWO6"
-                
+            <div class="faq-buttons" style="display: none;">
+              <button class="save-faq-btn">Simpan</button>
+              <button class="cancel-faq-btn">Batal</button>
+            </div>
+            <iframe height="480" width="500"
+                src=""
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
@@ -129,5 +151,210 @@
       </div>
     </div>
   </div>
+
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",
+    authDomain: "semakan-daftar-c9267.firebaseapp.com",
+    projectId: "semakan-daftar-c9267",
+    storageBucket: "semakan-daftar-c9267.appspot.com",
+    messagingSenderId: "1090274861346",
+    appId: "1:1090274861346:web:a54aef11652f8dcd82057b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadFAQs() {
+    const faqIds = ['faq1', 'faq2', 'faq3', 'faq4'];
+
+    for (const id of faqIds) {
+      const docRef = doc(db, 'faqs', id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const container = document.querySelector(`.admin-faq-${id.replace('faq', '')}`);
+        if (container) {
+          const questionText = container.querySelector('.question-text');
+          const answerText = container.querySelector('.answer-text');
+          const questionTextarea = container.querySelector('.edit-question');
+          const answerTextarea = container.querySelector('.edit-answer');
+
+          questionText.textContent = data.question || "Tiada soalan";
+          answerText.textContent = data.answer || "Tiada jawapan";
+
+          if (questionTextarea) questionTextarea.value = data.question || "";
+          if (answerTextarea) answerTextarea.value = data.answer || "";
+        }
+      } else {
+        console.warn(`Document ${id} not found`);
+      }
+    }
+  }
+
+  async function loadYoutubeLink() {
+    const docRef = doc(db, 'faqs', 'linkYoutube');
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const container = document.querySelector('.admin-embed');
+      if (container) {
+        const answerText = container.querySelector('.answer-text');
+        const answerTextarea = container.querySelector('.edit-answer');
+        const iframe = container.querySelector('iframe');
+
+        answerText.textContent = data.answer || "Insert a video link.";
+        if (answerTextarea) answerTextarea.value = data.answer || "";
+        if (iframe) iframe.src = getEmbedUrl(data.answer);
+      }
+    } else {
+      console.warn('Document linkYoutube not found');
+    }
+  }
+
+  function getEmbedUrl(url) {
+    // Convert normal YouTube link to embed URL
+    if (!url) return "";
+    const ytRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/;
+    const match = url.match(ytRegex);
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    return "";
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadFAQs();
+    loadYoutubeLink();
+
+    // Common edit icons click handler for FAQs & embed
+    document.querySelectorAll('.edit-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        const parent = icon.closest('[data-id]');
+        if (!parent) return;
+
+        // Show textareas, hide <p>, show buttons
+        parent.querySelectorAll('.question-text, .answer-text').forEach(p => p.style.display = 'none');
+        parent.querySelectorAll('textarea').forEach(ta => ta.style.display = 'block');
+        parent.querySelector('.faq-buttons').style.display = 'block';
+
+        // Hide all edit icons inside this parent
+        parent.querySelectorAll('.edit-icon').forEach(e => e.style.display = 'none');
+      });
+    });
+
+    // Cancel buttons
+    document.querySelectorAll('.cancel-faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('[data-id]');
+        if (!parent) return;
+
+        // Hide textareas, show <p>, hide buttons
+        parent.querySelectorAll('.question-text, .answer-text').forEach(p => p.style.display = 'block');
+        parent.querySelectorAll('textarea').forEach(ta => ta.style.display = 'none');
+        parent.querySelector('.faq-buttons').style.display = 'none';
+
+        // Show all edit icons inside this parent
+        parent.querySelectorAll('.edit-icon').forEach(e => e.style.display = 'inline');
+
+        // Reset textareas to original text content
+        const questionText = parent.querySelector('.question-text');
+        const answerText = parent.querySelector('.answer-text');
+        const questionTextarea = parent.querySelector('.edit-question');
+        const answerTextarea = parent.querySelector('.edit-answer');
+
+        if (questionTextarea) questionTextarea.value = questionText.textContent;
+        if (answerTextarea) answerTextarea.value = answerText.textContent;
+      });
+  });
+
+    // Save buttons
+    document.querySelectorAll('.save-faq-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+    const parent = btn.closest('[data-id]');
+    if (!parent) return;
+    const id = parent.getAttribute('data-id');
+
+    const questionTextarea = parent.querySelector('.edit-question');
+    const answerTextarea = parent.querySelector('.edit-answer');
+    const questionText = parent.querySelector('.question-text');
+    const answerText = parent.querySelector('.answer-text');
+
+    let question = questionTextarea ? questionTextarea.value.trim() : "";
+    let answer = answerTextarea ? answerTextarea.value.trim() : "";
+
+    if (id === 'linkYoutube') {
+      if (!answer) {
+        alert("Please enter a YouTube video link.");
+        return;
+      }
+      const iframe = parent.querySelector('iframe');
+      const embedUrl = getEmbedUrl(answer);
+      if (!embedUrl) {
+        alert("Invalid YouTube link format.");
+        return;
+      }
+      iframe.src = embedUrl;
+
+      // Save to Firestore
+      try {
+        const docRef = doc(db, 'faqs', id);
+        await updateDoc(docRef, { answer: answer });
+        alert("Video link saved!");
+        
+        // Update UI
+        answerText.textContent = answer;
+        questionText.style.display = 'none'; // There's no question for linkYoutube, so you can keep or hide
+        
+        answerText.style.display = 'block';
+        questionTextarea.style.display = 'none';
+        answerTextarea.style.display = 'none';
+        parent.querySelector('.faq-buttons').style.display = 'none';
+        parent.querySelectorAll('.edit-icon').forEach(e => e.style.display = 'inline');
+      } catch (error) {
+        alert("Failed to save data: " + error.message);
+      }
+    } else {
+      // For FAQ entries
+      if (!question) {
+        alert("Please enter a question.");
+        return;
+      }
+      if (!answer) {
+        alert("Please enter an answer.");
+        return;
+      }
+
+      try {
+        const docRef = doc(db, 'faqs', id);
+        await updateDoc(docRef, {
+          question: question,
+          answer: answer
+        });
+        alert("FAQ saved!");
+
+        // Update UI text and toggle editing mode off
+        questionText.textContent = question;
+        answerText.textContent = answer;
+
+        questionText.style.display = 'block';
+        answerText.style.display = 'block';
+        questionTextarea.style.display = 'none';
+        answerTextarea.style.display = 'none';
+        parent.querySelector('.faq-buttons').style.display = 'none';
+        parent.querySelectorAll('.edit-icon').forEach(e => e.style.display = 'inline');
+      } catch (error) {
+        alert("Failed to save data: " + error.message);
+      }
+    }
+  });
+});
+});
+  </script>
 </body>
 </html>
