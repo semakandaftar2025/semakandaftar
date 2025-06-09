@@ -167,10 +167,10 @@
 
 <!-- Firebase & JS -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-  import { auth, onAuthStateChanged } from "../firebase.js";
+  import { auth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
   onAuthStateChanged(auth, (user) => {
     if (user && user.email === "admin@example.com") {
@@ -318,7 +318,7 @@
 
   <!-- Handle logout --> 
   <script type="module">
-  import { auth } from "../firebase.js";
+  import { auth } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
   import { signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js"; 
 
   document.getElementById("logoutBtn").addEventListener("click", (e) => {

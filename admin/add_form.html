@@ -187,10 +187,10 @@
   </script>
 
   <script type="module">
-  import { auth, onAuthStateChanged } from "../firebase.js";
+  import { auth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
   onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "admin@example.com") {
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
       // Allow access
     } else {
       // Redirect to login page if not logged in or not admin

@@ -174,20 +174,20 @@
 
 <!-- Firebase -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-  import { auth, onAuthStateChanged } from "../firebase.js";
+  import { auth } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 
   onAuthStateChanged(auth, (user) => {
-    if (user && user.email === "admin@example.com") {
+    if (user && user.email === "semakandaftarpeguamsyarie2025@gmail.com") {
       // Allow access
     } else {
       // Redirect to login page if not logged in or not admin
       window.location.href = "login.html";
     }
   });
-  
+
   // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyBGo7VyWereRHO4UBXn8VH2z56HUzGoAkM",

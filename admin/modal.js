@@ -1,4 +1,4 @@
-import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
 const db = getFirestore();
 
