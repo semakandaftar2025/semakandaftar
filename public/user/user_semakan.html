@@ -13,9 +13,7 @@
   <nav class="nav">
     <div class="nav-left">
       <div class="nav-logo">
-        <img src="/images/jata negara.png" alt="Jata Negara" class="logo-img" />
         <img src="/images/jata perlis.png" alt="Jata Perlis" class="logo-img" />
-        <img src="/images/jksnps logo.png" alt="Logo JKSNPs" class="logo-img" />
       </div>
     </div>
     <div class="nav-center"></div>
@@ -41,8 +39,8 @@
 
           <div class="input-row">
             <div class="input-group">
-              <label for="id">ID</label>
-              <input type="text" id="id" name="idnumber" placeholder="Enter ID (without dashes)" />
+              <label for="id">IC number</label>
+              <input type="text" id="id" name="idnumber" placeholder="Enter IC (without dashes)" />
             </div>
           </div>
 
@@ -89,7 +87,7 @@
   e.preventDefault();
 
   const nameInput = document.getElementById('name').value.trim().toLowerCase();
-  const idInput = document.getElementById('id').value.trim();
+  const icInput = document.getElementById('id').value.trim();
 
   const table = document.querySelector('.result-peguam table');
 
@@ -116,9 +114,9 @@
       const icNum = data.icNum?.toString() || '';
 
       const matchName = nameInput ? nama.includes(nameInput) : true;
-      const matchId = idInput ? icNum === idInput : true;
+      const matchIC = icInput ? icNum === icInput : true;
 
-      if (matchName && matchId) {
+      if (matchName && matchIC) {
         count++;
         const row = document.createElement('tr');
         row.innerHTML = `

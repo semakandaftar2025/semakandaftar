@@ -499,7 +499,8 @@ canvas {
 .container-fluid {
   flex: 1;
   display: flex;
-  height: 100vh;            /* Full viewport height */
+  height: 100%;            /* Full viewport height */
+  width: 100%;
   text-align: center;       /* Center text inside h1 */
   background-color: grey;   /* Optional background */
   flex-direction: column;
@@ -926,7 +927,8 @@ header {
 }
 
 .homepage-wrapper {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -1802,10 +1804,19 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   }
   
   .sistem-image {
-    height: calc(100vh - 100px); /* 100px = same as padding-top */
-    margin-left: 0;
-    width: auto;
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.sistem-image img {
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+}
   
   .sistem-img {
     height: 100%;

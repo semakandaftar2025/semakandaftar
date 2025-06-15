@@ -184,7 +184,7 @@ document.addEventListener("click", async (e) => {
     const docId = e.target.getAttribute("data-doc-id");
 
     if (!docId) {
-      alert("ID dokumen tidak sah.");
+      alert("ID tidak sah.");
       return;
     }
 
@@ -209,7 +209,7 @@ document.addEventListener("click", async (e) => {
 modalEditBtn.addEventListener('click', function () {
   const docId = this.getAttribute('data-doc-id');
   if (!docId) {
-    alert('❗ Doc ID tidak tersedia untuk suntingan.');
+    alert('❗ ID tidak tersedia untuk suntingan.');
     return;
   }
   // Redirect to your edit page with docId in URL query parameter
