@@ -99,7 +99,7 @@
             </div>
           </div>
           <div class="senarai">
-            <h1>Senarai Terkini</h1>
+            <h1>Senarai Peguam Aktif</h1>
             <div class="list">
               <table>
                 <thead>
@@ -187,14 +187,27 @@
     }
   });
 
-  // 🔽 Sort and show 5 latest entries
-  allPeguam.sort((a, b) => b.createdAt - a.createdAt);
-  const latestFive = allPeguam.slice(0, 5);
+  // 🔄 Filter only 'aktif' peguam
+const aktifPeguam = allPeguam.filter(item => item.status.toLowerCase() === "aktif");
+
+// 🔀 Shuffle the array randomly
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+shuffleArray(aktifPeguam);
+
+// 📋 Get 5 random 'aktif' peguam
+const randomFiveAktif = aktifPeguam.slice(0, 5);
+
 
   const tableBody = document.getElementById("latestTableBody");
   tableBody.innerHTML = "";
 
-  latestFive.forEach((item) => {
+  randomFiveAktif.forEach((item) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${item.nama}</td>
