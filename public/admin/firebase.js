@@ -89,7 +89,7 @@ async function generateUniqueID(length = 8) {
 
       try {
         const docRef = await addDoc(collection(db, "peguamsyarie"), formData);
-        alert("✅ Maklumat berjaya dihantar! ID: " + docRef.id);
+        alert("✅ Maklumat berjaya dihantar! ID: " + id);
         document.getElementById("myform").reset();
       } catch (error) {
         console.error("❌ Ralat semasa menghantar data:", error);
