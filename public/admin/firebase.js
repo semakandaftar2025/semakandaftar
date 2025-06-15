@@ -24,14 +24,27 @@ const db = getFirestore(app);
 //     e.preventDefault();
 //   });
 
-// Function to generate random 8-digit ID
-function generateRandomID(length = 8) {
+// ✅ Function to generate a unique 8-digit ID
+async function generateUniqueID(length = 8) {
   const digits = '0123456789';
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += digits.charAt(Math.floor(Math.random() * digits.length));
+  let isUnique = false;
+  let id;
+
+  while (!isUnique) {
+    id = '';
+    for (let i = 0; i < length; i++) {
+      id += digits.charAt(Math.floor(Math.random() * digits.length));
+    }
+
+    const q = query(collection(db, "peguamsyarie"), where("id", "==", id));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      isUnique = true;
+    }
   }
-  return result;
+
+  return id;
 }
 
 // Handle "Hantar" button click
@@ -45,7 +58,7 @@ function generateRandomID(length = 8) {
       hantarBtn.textContent = "Sedang Hantar...";
       hantarBtn.style.backgroundColor = "#a5b0a6";
 
-      const noID = generateRandomID();
+      const noID = await generateUniqueID();
       const formData = {
         id: noID,
         nama: document.getElementById('nama').value,
