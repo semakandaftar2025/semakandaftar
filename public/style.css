@@ -1806,7 +1806,6 @@ input[type=text], input[type=number], input[type=date], input[type=email], selec
   
   .sistem-image {
   flex: 1;
-  display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
